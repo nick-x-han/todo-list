@@ -1,3 +1,106 @@
 body {
-  background-color: rebeccapurple;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: minmax(80px, 10%) 1fr;
 }
+
+:root {
+  --light-gray: #dddddddd;
+}
+
+header {
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--light-gray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #326496;
+  letter-spacing: 0.1em;
+}
+
+#content {
+  display: grid;
+
+  grid-template-columns: clamp(150px, 25%, 300px) 3fr;
+  height: 100%;
+  /* in case of very long words */
+  overflow-wrap: break-word;
+  word-break: break-all;
+  place-self: stretch;
+}
+
+#sidebar {
+  border-right: 1px var(--light-gray) solid;
+  overflow-y: auto;
+  background-color: var(--light-gray);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: max-content;
+  align-self: stretch;
+  height: 100%;
+  text-overflow: ellipsis;
+}
+
+#new-project {
+  align-self: start;
+}
+
+button {
+  font-size: 1.2rem;
+  background-color: orangered;
+  padding: 0.3em;
+}
+
+button:hover {
+  background-color: orange;
+}
+
+button:active {
+  background-color: red;
+}
+
+form {
+  display: grid;
+  gap: 1em;
+}
+
+button[formmethod="dialog"] {
+  justify-self: end;
+  padding: 0 0.5em;
+
+}
+
+#sidebar>h2 {
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: orangered;
+}
+
+#container {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+label {
+  display: block;
+}
+
+input,
+textarea,
+select {
+  padding: 0.5em;
+  font-size: 1.2rem;
+}
+
+select {
+  width: 100%;
+}
+
+.high {}
+
+.medium {}
+
+.low {}

@@ -1,6 +1,9 @@
 import "./styles.css";
-import {ToDo} from "./todo.js"
+
+import domManager from "./dom.js"
 // import odinImage from "./odin.png";
 
-let x= new ToDo("3", "d", "3", "High");
-console.log(x.completed)
+let todo_list = (function () {
+    domManager.initiate();
+})();
+

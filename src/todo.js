@@ -1,36 +1,39 @@
 class ToDo {
-    constructor(title, description, dueDate, priority) {
+    constructor(title, description = "", dueDate = new Date(), priority = "Low") {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        ToDo.allTasks.push(this);
     }
 
-    completed = false;
+    #completed = false;
 
     static priorityLevels = ['Low', 'Medium', 'High'];
+    //store all tasks ever made for sorting?
+    static allTasks = []
 
-    getPriorityLevels() {
-        return ;
-    }
-
-    setPriorityLevels(p) {
-        if (priorityLevels.includes(p)) {
-            this.priority = p;
+    //the modal will be auto-filled with the current info
+    editInfo(title, description, dueDate, priority) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        if (ToDo.priorityLevels.includes(priority)) {
+            this.priority = priority;
         }
         else {
             throw Error("Invalid priority level.");
         }
     }
 
-    get completed() {
-        return "yo";
+    getCompleted() {
+        return this.#completed;
     }
 
-    set completed(c) {
-        this.completed = c;
-    }
-
+    toggleCompleted() {
+        this.#completed = !this.#completed;
+        return this.#completed;
+    }    
 }
 
 
