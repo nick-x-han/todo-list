@@ -1,3 +1,5 @@
+import { ToDo } from "./todo";
+
 function Project(name) {
 
     let todos = [];

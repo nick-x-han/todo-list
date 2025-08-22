@@ -14,15 +14,15 @@
     <div id="content">
         <div id="sidebar">
             <h2>Projects</h2>
-            <button class="" id="new-project">New Project</button>
+            <button class="" data-purpose="project" id="new-project">New Project</button>
         </div>
         <div id="container">
-            <button class="" id="new-todo">+</button>
+            <button class="" data-purpose="todo" id="new-todo">+</button>
         </div>
     </div>
     <dialog id="create-todo">
         <form action="">
-            <button formmethod="dialog">x</button>
+            <button formmethod="dialog" data-purpose="todo">x</button>
             
             <div id="modal-title">
                 Create New To do
@@ -48,7 +48,7 @@
                 </select>
             </div>
 
-            <button type="button" id="confirm-button">Confirm</button>
+            <button type="button" data-purpose="todo" id="confirm-button">Confirm</button>
         </form>
     </dialog>
 </body>
