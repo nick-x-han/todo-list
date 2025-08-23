@@ -1,5 +1,6 @@
 import { ToDo } from "./todo.js"
 
+//maybe make showModal have different modes, like see (no inputs; amost the same except inputs replaced by the actual values), edit (all fields editable), and etc.
 const modalManager = (function () {
     const modal = document.querySelector("#create-todo");
     const title = document.querySelector("#title");

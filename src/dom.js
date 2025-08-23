@@ -12,16 +12,23 @@ const domManager = (function () {
         projectForm.displayForm();
     }
 
+    function closeProjectCreationForm(event, created) {
+        if (created)
+            projectForm.submitForm(event);
+        else
+            projectForm.hideForm(event);
+    }
+
     function generateTodo() {
         currentProject.addTodo();
     }
 
     //used with the .project buttons on the sidebar to switch the project that will be added to from new todos
-    function switchCurrentProject(target) {
+    function switchCurrentProject(event) {
         //add a .current-project class that will be styled to be darker in color or something
-        target.classList.toggle("current-project");
+        event.target.classList.toggle("current-project");
         currentProject.classList.toggle("current-project");
-        currentProject = target;
+        currentProject = event.target;
         reloadTodos(currentProject);
 
     }
@@ -36,7 +43,7 @@ const domManager = (function () {
         //wait this function makes no sense to have; addTodos for example should handle the modal
     }
 
-    return { openProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent };
+    return { openProjectCreationForm, closeProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent };
 })();
 
 //handles the form for creating a project
@@ -45,19 +52,21 @@ function ProjectForm() {
     const project = document.createElement("div");
     const form = document.createElement("form");
     const nameInput = document.createElement("input");
-    const addButton = document.createElement("button");
+    const confirmButton = document.createElement("button");
     const cancelButton = document.createElement("button");
 
+    confirmButton.dataset.purpose = "confirmProject";
+    cancelButton.dataset.purpose = "cancelProject";
 
     function initiate() {
-        addButton.textContent = "Add";
+        confirmButton.textContent = "Add";
         // addButton.type = "button";
         cancelButton.textContent = "Cancel";
         cancelButton.type = "button";
         nameInput.type = "text";
         nameInput.minLength = 1;
         form.appendChild(nameInput);
-        form.appendChild(addButton);
+        form.appendChild(confirmButton);
         form.appendChild(cancelButton);
         project.appendChild(form);
     }
@@ -68,18 +77,18 @@ function ProjectForm() {
         nameInput.focus();
     }
 
-    function hideForm(e) {
+    this.hideForm = function (e) {
         project.remove();
     }
 
-    function submitForm(e) {
+    this.submitForm = function(e) {
         e.preventDefault();
         const name = nameInput.value;
         if (nameInput.value.length > 0) {
             const projectButton = projectManager.createProject(name).getObject();
             projectListDom.insertBefore(projectButton, projectListDom.firstElementChild);
             nameInput.value = "";
-            hideForm(e);
+            this.hideForm();
         }
         else {
             //the validation isn't working in general, so this is best that can be done (browser won't check)
@@ -88,8 +97,6 @@ function ProjectForm() {
     }
 
     initiate();
-    addButton.addEventListener("click", submitForm)
-    cancelButton.addEventListener("click", hideForm);
 
 }
 

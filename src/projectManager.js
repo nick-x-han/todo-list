@@ -1,4 +1,6 @@
 import Project from "./project.js";
+import editIcon from "./images/pencil.svg"
+import deleteIcon from "./images/delete.svg"
 
 class ProjectObject {
     constructor(name) {
@@ -7,7 +9,7 @@ class ProjectObject {
     }
 
     #generateHTML(name) {
-        const projectDiv = document.createElement("button");
+        const projectDiv = document.createElement("div");
         const changeButton = document.createElement("button");
         const editButton = document.createElement("button");
         const deleteButton = document.createElement("button");
@@ -16,6 +18,10 @@ class ProjectObject {
         changeButton.dataset.purpose = "switchProject";
         editButton.dataset.purpose = "editProject";
         deleteButton.dataset.purpose = "deleteProject";
+
+        editButton.style.backgroundImage = `url(${editIcon})`;
+        deleteButton.style.backgroundImage = `url(${deleteIcon})`;
+        
         projectDiv.classList.add("project");
         projectDiv.appendChild(changeButton);
         projectDiv.appendChild(editButton);

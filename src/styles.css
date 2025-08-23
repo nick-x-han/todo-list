@@ -37,7 +37,6 @@ header {
   background-color: var(--light-gray);
   display: grid;
   grid-template-rows: auto auto 1fr;
-  grid-template-columns: clamp(100px, 10%, 300px);
   min-width: max-content;
   align-self: stretch;
   height: 100%;
@@ -49,6 +48,7 @@ header {
   padding: 1em 0.25em;
   display: grid;
   grid-auto-rows: min-content;
+  gap: 1em;
   /* grid-template-columns: 200px; */
 }
 
@@ -65,13 +65,39 @@ header {
 
 .project {
   display: grid;
+  justify-self: stretch;
   /* switch, edit, delete */
   grid-template-columns: 1fr 20px 20px; 
+  background-color: var(--light-gray);
+  &:hover {
+    background-color: white;
+  }
+  *:hover {
+    background-color: inherit;
+    border: 1px black dotted;
+    
+  }
+  * {
+    background-color: inherit;
+    border: none;
+  }
+}
+
+.project > button:nth-child(1) {
+  border: none;
+  margin: none;
+}
+
+.project > button:not(:nth-child(1)) {
+  height: 20px;
+  width: 20px;
+  align-self: center;
 }
 
 /* when selected as the current project */
 .current-project {
   background-color: aqua;
+  border: 1px solid black;
 }
 
 #new-project {
