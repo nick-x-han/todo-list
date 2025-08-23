@@ -9,7 +9,7 @@ const buttonActions = {
     confirmProject: function (event) { domManager.closeProjectCreationForm(event, true) },
     cancelProject: function (event) { domManager.closeProjectCreationForm(event, false) },
     deleteProject: function (event) { domManager.removeProject },
-    editProject: function () { },
+    editProject: function (event) { },
     addTodo: function () { },
     confirmTodo: function () { },
     cancelTodo: function () { },
@@ -27,6 +27,7 @@ let todo_list = (function () {
         const action = buttonActions[purpose];
 
         if (action) {
+            console.log(purpose);
             action(event);
         }
         else {

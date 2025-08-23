@@ -5,7 +5,7 @@ import ProjectForm from "./projectForm.js";
 const domManager = (function () {
     const projectListDom = document.querySelector("#project-list");
     const todosListDom = document.querySelector("#todos-list");
-    let currentProject = projectManager.projects[0].getHTML();
+    let currentProject = projectManager.projects[0];
 
     const projectForm = new ProjectForm(projectListDom, projectManager);
 
@@ -17,7 +17,8 @@ const domManager = (function () {
         if (created) {
             let name = projectForm.submitForm(event);
             if (name) {
-                createAndInsertProject(name);
+                const project = projectManager.createProject(name);
+                insertProject(project);
             }
         }
         else {
@@ -25,8 +26,8 @@ const domManager = (function () {
         }
     }
 
-    function createAndInsertProject(name) {
-        const projectDiv = projectManager.createProject(name).getHTML();
+    function insertProject(project) {
+        const projectDiv = project.getHTML();
         projectListDom.insertBefore(projectDiv, projectListDom.firstElementChild);
     }
 
@@ -37,10 +38,16 @@ const domManager = (function () {
     //used with the .project buttons on the sidebar to switch the project that will be added to from new todos
     function switchCurrentProject(event) {
         //add a .current-project class that will be styled to be darker in color or something
-        event.target.classList.toggle("current-project");
-        currentProject.classList.toggle("current-project");
-        currentProject = event.target;
-        reloadTodos();
+        currentProject.getHTML().classList.toggle("current-project");
+        let name = event.target.textContent;
+        currentProject = projectManager.getProjectByName(name);
+        currentProject.getHTML().classList.toggle("current-project");
+        // reloadTodos();
+    }
+
+    function editProjectName(event) {
+        let name = event.target.textContent;
+        let project = projectManager.getProjectByName(name);
 
     }
 
@@ -60,18 +67,19 @@ const domManager = (function () {
         projectListDom.replaceChildren();
 
         const projects = projectManager.projects;
-        // for (const project of projects) {
-        //     createAndInsertProject(project);
-        // }
+        for (const project of projects) {
+            insertProject(project);
+        }
         // reloadTodos();
+        console.log(currentProject)
+        currentProject.getHTML().classList.add("current-project");
     }
 
-        //i  was trying to get reloadContent and reloadTOdos to work for now so that the default project gets loaded in upon reload. also was working on deleteproject
     function receiveModalEvent() {
         //wait this function makes no sense to have; addTodos for example should handle the modal
     }
 
-    // reloadContent();
+    reloadContent();
 
     return { openProjectCreationForm, closeProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent, removeProject };
 })();

@@ -69,7 +69,11 @@ const projectManager = (function () {
         return !names.includes(name);
     }
 
-    return { projects, appendTodo, createProject, validateName };
+    function getProjectByName(name) {
+        return projects.find(project => project.project.getName() === name);
+    }
+
+    return { projects, appendTodo, createProject, validateName, getProjectByName };
 })();
 
 export default projectManager;
