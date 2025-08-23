@@ -8,7 +8,7 @@ const buttonActions = {
     switchProject: function (event) { domManager.switchCurrentProject(event) },
     confirmProject: function (event) { domManager.closeProjectCreationForm(event, true) },
     cancelProject: function (event) { domManager.closeProjectCreationForm(event, false) },
-    deleteProject: function (event) {  },
+    deleteProject: function (event) { domManager.removeProject },
     editProject: function () { },
     addTodo: function () { },
     confirmTodo: function () { },

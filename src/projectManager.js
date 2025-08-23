@@ -51,10 +51,25 @@ const projectManager = (function () {
     }
 
     function deleteProject(project) {
-        
+
     }
 
-    return { projects, appendTodo, createProject };
+    //if name has been input and it is unique
+    function validateName(name) {
+        if (name.length > 0 && isUniqueName(name)) {
+            return true;
+        } 
+        return false;
+    }
+
+    function isUniqueName(name) {
+        const names = projects.map(project => {
+            return project.project.getName();
+        })
+        return !names.includes(name);
+    }
+
+    return { projects, appendTodo, createProject, validateName };
 })();
 
 export default projectManager;
