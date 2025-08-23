@@ -4,14 +4,16 @@ import domManager from "./dom.js"
 
 // New actions can be added here without touching handleButton; open/closed principle
 const buttonActions = {
-  addProject: function() { domManager.openProjectCreationForm() },
-  switchProject: function(event) {domManager.switchCurrentProject(event) },
-  confirmProject: function(event) { domManager.closeProjectCreationForm(event, true) },
-  cancelProject: function(event) { domManager.closeProjectCreationForm(event, false) },
-  addTodo: function() {  },
-  confirmTodo: function() {  },
-  cancelTodo: function() {  },
-  
+    addProject: function () { domManager.openProjectCreationForm() },
+    switchProject: function (event) { domManager.switchCurrentProject(event) },
+    confirmProject: function (event) { domManager.closeProjectCreationForm(event, true) },
+    cancelProject: function (event) { domManager.closeProjectCreationForm(event, false) },
+    deleteProject: function (event) {  },
+    editProject: function () { },
+    addTodo: function () { },
+    confirmTodo: function () { },
+    cancelTodo: function () { },
+
 };
 
 let todo_list = (function () {
@@ -29,7 +31,7 @@ let todo_list = (function () {
         }
         else {
             console.log(purpose)
-        }       
+        }
     }
 
     function initiate() {

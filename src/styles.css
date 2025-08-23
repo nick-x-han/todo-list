@@ -96,8 +96,8 @@ header {
 
 /* when selected as the current project */
 .current-project {
-  background-color: aqua;
-  border: 1px solid black;
+  /* background-color: aqua; */
+  border: 1px solid
 }
 
 #new-project {

@@ -21,7 +21,7 @@ class ProjectObject {
 
         editButton.style.backgroundImage = `url(${editIcon})`;
         deleteButton.style.backgroundImage = `url(${deleteIcon})`;
-        
+
         projectDiv.classList.add("project");
         projectDiv.appendChild(changeButton);
         projectDiv.appendChild(editButton);
@@ -30,7 +30,7 @@ class ProjectObject {
         //idea: each project div has 3 columns for each of teh three actions. each project can also have a .current-project, in which case the entire div changes color. 
     }
 
-    getObject() {
+    getHTML() {
         return this.object;
     }
 }
@@ -48,6 +48,10 @@ const projectManager = (function () {
         let project = new ProjectObject(name);
         projects.push(project);
         return project;
+    }
+
+    function deleteProject(project) {
+        
     }
 
     return { projects, appendTodo, createProject };
