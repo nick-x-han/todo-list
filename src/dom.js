@@ -31,6 +31,12 @@ const domManager = (function () {
         projectListDom.insertBefore(projectDiv, projectListDom.firstElementChild);
     }
 
+    function editProject(event) {
+        let name = event.target.textContent;
+        projectManager.editProjectName(name);
+
+    }
+
     function removeProject(event) {
 
     }
@@ -43,12 +49,6 @@ const domManager = (function () {
         currentProject = projectManager.getProjectByName(name);
         currentProject.getHTML().classList.toggle("current-project");
         // reloadTodos();
-    }
-
-    function editProjectName(event) {
-        let name = event.target.textContent;
-        let project = projectManager.getProjectByName(name);
-
     }
 
     function generateTodo() {
@@ -81,7 +81,7 @@ const domManager = (function () {
 
     reloadContent();
 
-    return { openProjectCreationForm, closeProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent, removeProject };
+    return { openProjectCreationForm, closeProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent, removeProject, editProject };
 })();
 
 export default domManager;

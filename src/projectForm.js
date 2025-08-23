@@ -48,12 +48,16 @@ function ProjectForm(projectListDom, projectManager) {
         newProjectButton.disabled = false;
     }
 
-    this.submitForm = function(e) {
+    this.resetFormField = function(e) {
+        nameInput.value = "";
+    }
+
+    this.submitForm = function (e) {
         e.preventDefault();
         const name = nameInput.value;
-        
+
         if (projectManager.validateName(name)) {
-            nameInput.value = "";
+            this.resetFormField();
             this.hideForm();
             return name;
         }

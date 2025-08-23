@@ -50,6 +50,11 @@ const projectManager = (function () {
         return project;
     }
 
+    function changeName(project, name) {
+        project.object.textContent = name;
+        project.project.name = name;
+    }
+
     function deleteProject(project) {
 
     }
