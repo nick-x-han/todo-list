@@ -40,12 +40,12 @@ function ProjectForm(projectListDom, projectManager) {
         // modalManager.displayModal();
         projectListDom.insertBefore(project, projectListDom.firstElementChild);
         nameInput.focus();
-        newProjectButton.style.visibility = "hidden";
+        newProjectButton.disabled = true;
     }
 
     this.hideForm = function (e) {
         project.remove();
-        newProjectButton.style.visibility = "visible";
+        newProjectButton.disabled = false;
     }
 
     this.submitForm = function(e) {
