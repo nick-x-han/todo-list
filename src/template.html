@@ -14,15 +14,18 @@
     <div id="content">
         <div id="sidebar">
             <h2>Projects</h2>
-            <button class="" data-purpose="project" id="new-project">New Project</button>
+            <button class="" data-purpose="addProject" id="new-project">New Project</button>
+            <div id="project-list">
+                <button class="project">First ProjectFirst ProjectFirst ProjectFirst ProjectFirst ProjectFirst ProjectFirst Project</button>
+            </div>
         </div>
         <div id="container">
-            <button class="" data-purpose="todo" id="new-todo">+</button>
+            <button class="" data-purpose="addTodo" id="new-todo">+</button>
         </div>
     </div>
     <dialog id="create-todo">
         <form action="">
-            <button formmethod="dialog" data-purpose="todo">x</button>
+            <button class="cancel-button" formmethod="dialog" data-purpose="cancelTodo">x</button>
             
             <div id="modal-title">
                 Create New To do
@@ -48,7 +51,7 @@
                 </select>
             </div>
 
-            <button type="button" data-purpose="todo" id="confirm-button">Confirm</button>
+            <button type="button" data-purpose="confirmTodo" id="confirm-button">Confirm</button>
         </form>
     </dialog>
 </body>

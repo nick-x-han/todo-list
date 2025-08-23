@@ -1,45 +1,99 @@
-import todoManager from "./todoManager.js";
 import projectManager from "./projectManager.js";
-
+import modalManager from "./modal.js"
 
 const domManager = (function () {
-    const content = document.querySelector("#content");
+    let currentProject = projectManager.projects[0];
 
-    //using data-purpose for the O/C principle
-    function handleClick(e) {
-        if (e.target.tagName === "BUTTON")
-        {
-            const purpose = e.target.dataset.purpose;
-            if (purpose === "todo") {
-                console.log("Using todo");
-                todoManager.receiveEvent(e.target);
-            }
-            else if (purpose === "project") {
-                projectManager.receiveEvent(e.target);
-            }
-        }
-        
+    const projectForm = new ProjectForm();
+
+    function openProjectCreationForm() {
+        //every project needs to have button functionality but no event listener (index.js will have a handleButton that redirects clicks on each project to there, with a single "switchCurrentProject" function). Make sure every project has a .project on it in the sidebar
+
+        projectForm.displayForm();
     }
 
-    function initiate() {
-        const sidebar = document.querySelector("#sidebar");
-        const container = document.querySelector("#container");
-
-        attachEvents();
+    function generateTodo() {
+        currentProject.addTodo();
     }
 
-    function attachEvents() {
-        content.addEventListener("click", handleClick);
-        // createButton.addEventListener("click", modalManager.showModal);
-        // confirmButton.addEventListener("click", modalManager.confirmNewTodo);
+    //used with the .project buttons on the sidebar to switch the project that will be added to from new todos
+    function switchCurrentProject(target) {
+        //add a .current-project class that will be styled to be darker in color or something
+        target.classList.toggle("current-project");
+        currentProject.classList.toggle("current-project");
+        currentProject = target;
+        reloadTodos(currentProject);
+
     }
-//this file prob needs to be name changed and just do somethign else. think about the restaurant...OR all i want in the index will instead be done here
 
+    function reloadTodos() {
+        //this will regenerate the #container with the todos for this project
+        const todos = currentProject.getTodos();
+        console.log(todos);
+    }
 
-    return { initiate };
+    function receiveModalEvent() {
+        //wait this function makes no sense to have; addTodos for example should handle the modal
+    }
+
+    return { openProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent };
 })();
 
-//remember that the dom should be the interface between the internal code and the user. it needs to call the internal modules' functions for them. 
+//handles the form for creating a project
+function ProjectForm() {
+    const projectListDom = document.querySelector("#project-list");
+    const project = document.createElement("div");
+    const form = document.createElement("form");
+    const nameInput = document.createElement("input");
+    const addButton = document.createElement("button");
+    const cancelButton = document.createElement("button");
+
+
+    function initiate() {
+        addButton.textContent = "Add";
+        // addButton.type = "button";
+        cancelButton.textContent = "Cancel";
+        cancelButton.type = "button";
+        nameInput.type = "text";
+        nameInput.minLength = 1;
+        form.appendChild(nameInput);
+        form.appendChild(addButton);
+        form.appendChild(cancelButton);
+        project.appendChild(form);
+    }
+
+    this.displayForm = function () {
+        // modalManager.displayModal();
+        projectListDom.insertBefore(project, projectListDom.firstElementChild);
+        nameInput.focus();
+    }
+
+    function hideForm(e) {
+        project.remove();
+    }
+
+    function submitForm(e) {
+        e.preventDefault();
+        const name = nameInput.value;
+        if (nameInput.value.length > 0) {
+            const projectButton = projectManager.createProject(name).getObject();
+            projectListDom.insertBefore(projectButton, projectListDom.firstElementChild);
+            nameInput.value = "";
+            hideForm(e);
+        }
+        else {
+            //the validation isn't working in general, so this is best that can be done (browser won't check)
+            nameInput.focus();
+        }
+    }
+
+    initiate();
+    addButton.addEventListener("click", submitForm)
+    cancelButton.addEventListener("click", hideForm);
+
+}
+
+//remember that the dom should be the interface between the internal code and the user. it needs to call the internal modules' functions for them. I THINK THAT this will just contain functions that add HTML to the template.html and also modify the projectManager. the todoManager is no more, while the projectManager is what contains the actual data. then dom.js contains the functions that index.js calls based on button clicks.
 
 
 

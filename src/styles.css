@@ -36,11 +36,42 @@ header {
   overflow-y: auto;
   background-color: var(--light-gray);
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
+  grid-template-columns: clamp(100px, 10%, 300px);
   min-width: max-content;
   align-self: stretch;
   height: 100%;
+  
+}
+
+#project-list {
+
+  padding: 1em 0.25em;
+  display: grid;
+  grid-auto-rows: min-content;
+  /* grid-template-columns: 200px; */
+}
+
+/* .project {
+  text-align: center;
+  background-color: var(--light-gray);
+  &:hover {
+    background-color: white;
+  }
   text-overflow: ellipsis;
+  overflow-x: hidden;
+  white-space: nowrap;
+} */
+
+.project {
+  display: grid;
+  /* switch, edit, delete */
+  grid-template-columns: 1fr 20px 20px; 
+}
+
+/* when selected as the current project */
+.current-project {
+  background-color: aqua;
 }
 
 #new-project {
@@ -64,6 +95,11 @@ button:active {
 form {
   display: grid;
   gap: 1em;
+}
+
+/* use in future for better js html generation */
+.cancel-button {
+
 }
 
 button[formmethod="dialog"] {
