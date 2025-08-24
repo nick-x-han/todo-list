@@ -98,8 +98,8 @@ function ProjectForm(parent, projectManager) {
             if (formObjectToEdit) {
                 
                 let originalName = formObjectToEdit.firstElementChild.textContent;
-                formObjectToEdit.firstElementChild.textContent = name;
                 projectManager.changeName(projectManager.getProjectByName(originalName), name);
+
             }
             
             this.resetFormField();

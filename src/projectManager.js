@@ -52,7 +52,7 @@ const projectManager = (function () {
 
     function changeName(project, name) {
         project.object.firstElementChild.textContent = name;
-        project.project.name = name;
+        project.project.setName(name);
     }
 
     function deleteProject(project) {

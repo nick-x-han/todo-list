@@ -16,12 +16,16 @@ function Project(name) {
         return name;
     }
 
+    function setName(n) {
+        name = n;
+    }
+
     //for getting e.g. tasks ready by today
     function getDueTasks(timeframe) {
         
     }
 
-    return {addTodo, getTodos, getDueTasks, getName};
+    return {addTodo, getTodos, getDueTasks, getName, setName};
 }
 
 export default Project;

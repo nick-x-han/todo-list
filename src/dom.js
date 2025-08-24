@@ -17,14 +17,19 @@ const domManager = (function () {
     function confirmProjectCreationForm(event) {
         let name = projectForm.submitForm(event);
  
-        if (name && !projectManager.getProjectByName(name)) {
+        if (name) {
             const project = projectManager.createProject(name);
             insertProject(project);
         }
     }
 
     function confirmProjectEditForm(event) {
-        
+        projectForm.submitForm(event);
+ 
+        // if (name && !projectManager.getProjectByName(name)) {
+        //     const project = projectManager.createProject(name);
+        //     insertProject(project);
+        // }
     }
 
     function cancelProjectCreationForm(event) {
