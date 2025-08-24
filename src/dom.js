@@ -1,6 +1,6 @@
 import projectManager from "./projectManager.js";
 import modalManager from "./modal.js"
-import ProjectForm from "./projectForm.js";
+import { ProjectForm } from "./projectForm.js";
 
 const domManager = (function () {
     const projectListDom = document.querySelector("#project-list");
@@ -9,21 +9,21 @@ const domManager = (function () {
 
     const projectForm = new ProjectForm(projectListDom, projectManager);
 
-    function openProjectCreationForm() {
+    //NEW IDEA: use the overall same projectForm, but just allow choosing between edit or creation display and also where it gets displayed
+    function openProjectCreationForm(event) {
         projectForm.displayForm();
     }
 
-    function closeProjectCreationForm(event, created) {
-        if (created) {
-            let name = projectForm.submitForm(event);
-            if (name) {
-                const project = projectManager.createProject(name);
-                insertProject(project);
-            }
+    function confirmProjectCreationForm(event) {
+        let name = projectForm.submitForm(event);
+        if (name) {
+            const project = projectManager.createProject(name);
+            insertProject(project);
         }
-        else {
-            projectForm.hideForm(event);
-        }
+    }
+
+    function cancelProjectCreationForm(event) {
+        projectForm.hideForm(event);
     }
 
     function insertProject(project) {
@@ -31,9 +31,9 @@ const domManager = (function () {
         projectListDom.insertBefore(projectDiv, projectListDom.firstElementChild);
     }
 
-    function editProject(event) {
+    function openProjectEditForm(event) {
         let name = event.target.textContent;
-        projectManager.editProjectName(name);
+        projectManager.changeName(name);
 
     }
 
@@ -81,7 +81,7 @@ const domManager = (function () {
 
     reloadContent();
 
-    return { openProjectCreationForm, closeProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent, removeProject, editProject };
+    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent, removeProject, openProjectEditForm };
 })();
 
 export default domManager;

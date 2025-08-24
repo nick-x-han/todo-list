@@ -22,6 +22,8 @@ function ProjectForm(projectListDom, projectManager) {
     cancelButton.dataset.purpose = "cancelProject";
 
     function initiate() {
+        form.formObject = this;
+
         confirmButton.textContent = "Add";
         // addButton.type = "button";
         cancelButton.textContent = "Cancel";
@@ -48,7 +50,7 @@ function ProjectForm(projectListDom, projectManager) {
         newProjectButton.disabled = false;
     }
 
-    this.resetFormField = function(e) {
+    this.resetFormField = function (e) {
         nameInput.value = "";
     }
 
@@ -71,4 +73,4 @@ function ProjectForm(projectListDom, projectManager) {
 
 }
 
-export default ProjectForm;
+export { ProjectForm };
