@@ -5,6 +5,8 @@ import { ProjectForm } from "./projectForm.js";
 const domManager = (function () {
     const projectListDom = document.querySelector("#project-list");
     const todosListDom = document.querySelector("#todos-list");
+    const currentProjectName = document.querySelector("#current-project-header");
+
     let currentProject = projectManager.projects[0];
 
     const projectForm = new ProjectForm(projectListDom, projectManager);
@@ -25,11 +27,6 @@ const domManager = (function () {
 
     function confirmProjectEditForm(event) {
         projectForm.submitForm(event);
- 
-        // if (name && !projectManager.getProjectByName(name)) {
-        //     const project = projectManager.createProject(name);
-        //     insertProject(project);
-        // }
     }
 
     function cancelProjectCreationForm(event) {
@@ -47,17 +44,27 @@ const domManager = (function () {
     }
 
     function removeProject(event) {
-
+        let projectDiv = event.target.closest("div");
+        let name = projectDiv.firstElementChild.textContent;
+        projectManager.deleteProjectByName(name);
+        reloadContent();
     }
 
-    //used with the .project buttons on the sidebar to switch the project that will be added to from new todos
     function switchCurrentProject(event) {
-        //add a .current-project class that will be styled to be darker in color or something
         currentProject.getHTML().classList.toggle("current-project");
         let name = event.target.textContent;
         currentProject = projectManager.getProjectByName(name);
         currentProject.getHTML().classList.toggle("current-project");
+        currentProjectName.textContent = currentProject.project.getName();
         // reloadTodos();
+    }
+
+    function openTodoModal() {
+        modalManager.displayModal("Create");
+    }
+    
+    function closeTodoModal() {
+        modalManager.closeModal();
     }
 
     function generateTodo() {
@@ -86,6 +93,7 @@ const domManager = (function () {
             currentProject = projectManager.projects.at(-1);
         }
         currentProject.getHTML().classList.add("current-project");
+        currentProjectName.textContent = currentProject.project.getName();
     }
 
     function receiveModalEvent() {
@@ -94,7 +102,7 @@ const domManager = (function () {
 
     reloadContent();
 
-    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent, removeProject, openProjectEditForm, confirmProjectEditForm };
+    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent, removeProject, openProjectEditForm, confirmProjectEditForm, openTodoModal, closeTodoModal };
 })();
 
 export default domManager;

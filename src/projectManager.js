@@ -2,6 +2,7 @@ import Project from "./project.js";
 import editIcon from "./images/pencil.svg"
 import deleteIcon from "./images/delete.svg"
 
+//MIGHT BE BEST TO REFACTOR BY MAKING PROJECTS AN OBJECT...AVOIDS DUPLICATES, O(1), ETC.
 class ProjectObject {
     constructor(name) {
         this.project = new Project(name);
@@ -55,13 +56,14 @@ const projectManager = (function () {
         project.project.setName(name);
     }
 
-    function deleteProject(project) {
-
+    function deleteProjectByName(name) {
+        let index = projects.findIndex(p => p.project.getName() === name);
+        projects.splice(index, 1);
     }
 
     //if name has been input and it is unique
     function validateName(name) {
-        if (isUniqueName(name)) {
+        if (isUniqueName(name) && name.length > 0) {
             return true;
         } 
         return false;
@@ -78,7 +80,7 @@ const projectManager = (function () {
         return projects.find(project => project.project.getName() === name);
     }
     window.projects = projects;
-    return { projects, appendTodo, createProject, validateName, getProjectByName, changeName };
+    return { projects, appendTodo, createProject, validateName, getProjectByName, changeName, deleteProjectByName };
 })();
 
 export default projectManager;

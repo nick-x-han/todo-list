@@ -147,15 +147,6 @@ button:active {
   color: black;
 }
 
-/* use in future for better js html generation */
-.cancel-button {}
-
-button[formmethod="dialog"] {
-  justify-self: end;
-  padding: 0 0.5em;
-
-}
-
 #sidebar>h2 {
   text-align: center;
   font-weight: 500;
@@ -166,6 +157,10 @@ button[formmethod="dialog"] {
 #container {
   overflow-y: auto;
   scrollbar-width: none;
+}
+
+#container, #sidebar {
+  padding-top: 30px;
 }
 
 label {
@@ -204,8 +199,8 @@ select {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1em;
-  gap: 1em;
+  gap: 16px;
+  padding-bottom: 16px;
 }
 
 h2 {
@@ -226,4 +221,36 @@ h2 {
   box-sizing: border-box;
   width: 100%;
   max-width: 100%;
+}
+
+.small-header {
+  font-size: 2rem;
+  padding: 0.25em;
+  font-weight: 1000;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 
+    0 0 2px black,     
+    0 0 4px black;     
+}
+
+#create-todo {
+  background-color: var(--light-gray);
+}
+
+#create-todo>form {
+  display: grid;
+}
+
+.cancel {
+  justify-self: end;
+  padding: 0 0.5em;
+  width: 2em;
+  height: 2em;
+  background-color: red;
+}
+
+.separator {
+  border: 2px solid black;
 }

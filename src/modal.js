@@ -7,6 +7,9 @@ const modalManager = (function () {
     const description = document.querySelector("#description");
     const dueDate = document.querySelector("#due-date");
     const priority = document.querySelector("#priority");
+    const confirmButton = document.querySelector("#confirm-button");
+    const cancelButton = document.querySelector("#cancel-button");
+    cancelButton.type = "button";
 
     function resetModal() {
         title.value = "";
@@ -15,7 +18,9 @@ const modalManager = (function () {
         priority.value = "";
     }
 
-    function displayModal() {
+    function displayModal(purpose) {
+        
+        confirmButton.textContent = purpose;
         modal.showModal();
     }
 
@@ -27,16 +32,20 @@ const modalManager = (function () {
         return [t, d, dd, p];
     }
 
+    function closeModal() {
+        modal.close();
+    }
+
     function popModal() {
         const modalInfo = getModal();
 
         resetModal();
-        modal.close();
+        closeModal();
 
         return modalInfo;
     }
 
-    return { displayModal, getModal, popModal };
+    return { displayModal, getModal, popModal, closeModal };
 
 })();
 

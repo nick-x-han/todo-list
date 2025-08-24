@@ -22,7 +22,11 @@
             </div>
         </div>
         <div id="container">
-            <button class="square" data-purpose="addTodo" id="new-todo">+</button>
+            <div class="horizontal-two">
+                <div id="current-project-header" class="small-header"></div>
+                <button class="square" data-purpose="addTodo" id="new-todo">+</button>
+            </div>
+            <div class="separator"></div>
             <div class="todos-list">
                 
             </div>
@@ -30,14 +34,15 @@
     </div>
     <dialog id="create-todo">
         <form action="">
-            <button class="cancel-button" formmethod="dialog" data-purpose="cancelTodo">x</button>
+            <!-- the formnovalidate and formmethod technically aren't needed here; only kept as a reminder. look at mdn closing a dialog w/ a required form input -->
+            <button id="cancel-button" class="cancel" formmethod="dialog" data-purpose="cancelTodo" formnovalidate>x</button>
 
-            <div id="modal-title">
-                Create New To do
+            <div class="small-header">
+                Create ToDo
             </div>
             <div>
                 <label for="title">Title</label>
-                <input type="text" name="title" id="title">
+                <input type="text" name="title" id="title" required>
             </div>
             <div>
                 <label for="description">Description</label>
@@ -45,7 +50,7 @@
             </div>
             <div>
                 <label for="due-date">Due Date</label>
-                <input type="date" name="due-date" id="due-date">
+                <input type="date" name="due-date" id="due-date" required>
             </div>
             <div>
                 <label for="priority">Priority</label>
@@ -53,7 +58,7 @@
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
-                </select>
+                </select required>
             </div>
 
             <button type="button" data-purpose="confirmTodo" id="confirm-button">Confirm</button>

@@ -11,9 +11,9 @@ const buttonActions = {
     deleteProject: function (event) { domManager.removeProject(event) },
     editProject: function (event) { domManager.openProjectEditForm(event)},
     confirmEditProject: function(event) { domManager.confirmProjectEditForm(event) },
-    addTodo: function () { },
+    addTodo: function (event) { domManager.openTodoModal(event) },
     confirmTodo: function () { },
-    cancelTodo: function () { },
+    cancelTodo: function (event) { domManager.closeTodoModal(event) },
 
 };
 
@@ -45,8 +45,9 @@ let todo_list = (function () {
     function attachEvents() {
         const content = document.querySelector("#content");
         content.addEventListener("click", handleButton);
-        // createButton.addEventListener("click", modalManager.showModal);
-        // confirmButton.addEventListener("click", modalManager.confirmNewTodo);
+
+        const modal = document.querySelector("dialog");
+        modal.addEventListener("click", handleButton);
     }
 
     initiate();
