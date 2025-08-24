@@ -11,15 +11,20 @@ const domManager = (function () {
 
     //NEW IDEA: use the overall same projectForm, but just allow choosing between edit or creation display and also where it gets displayed
     function openProjectCreationForm(event) {
-        projectForm.displayForm();
+        projectForm.displayCreationForm();
     }
 
     function confirmProjectCreationForm(event) {
         let name = projectForm.submitForm(event);
-        if (name) {
+ 
+        if (name && !projectManager.getProjectByName(name)) {
             const project = projectManager.createProject(name);
             insertProject(project);
         }
+    }
+
+    function confirmProjectEditForm(event) {
+        
     }
 
     function cancelProjectCreationForm(event) {
@@ -32,9 +37,8 @@ const domManager = (function () {
     }
 
     function openProjectEditForm(event) {
-        let name = event.target.textContent;
-        projectManager.changeName(name);
-
+        let projectDiv = event.target.closest("div");
+        projectForm.displayEditForm(projectDiv);
     }
 
     function removeProject(event) {
@@ -71,7 +75,11 @@ const domManager = (function () {
             insertProject(project);
         }
         // reloadTodos();
-        console.log(currentProject)
+
+        //i envision this being useful if the current project deleted and then which project to load?
+        if (!currentProject) {
+            currentProject = projectManager.projects.at(-1);
+        }
         currentProject.getHTML().classList.add("current-project");
     }
 
@@ -81,7 +89,7 @@ const domManager = (function () {
 
     reloadContent();
 
-    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent, removeProject, openProjectEditForm };
+    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent, removeProject, openProjectEditForm, confirmProjectEditForm };
 })();
 
 export default domManager;

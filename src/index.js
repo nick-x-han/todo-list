@@ -6,10 +6,11 @@ import domManager from "./dom.js"
 const buttonActions = {
     addProject: function (event) { domManager.openProjectCreationForm(event) },
     switchProject: function (event) { domManager.switchCurrentProject(event) },
-    confirmProject: function (event) { domManager.confirmProjectCreationForm(event) },
+    confirmAddProject: function (event) { domManager.confirmProjectCreationForm(event) },
     cancelProject: function (event) { domManager.cancelProjectCreationForm(event) },
     deleteProject: function (event) { domManager.removeProject(event) },
     editProject: function (event) { domManager.openProjectEditForm(event)},
+    confirmEditProject: function(event) { domManager.confirmProjectEditForm(event) },
     addTodo: function () { },
     confirmTodo: function () { },
     cancelTodo: function () { },

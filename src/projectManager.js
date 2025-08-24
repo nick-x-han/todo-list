@@ -51,7 +51,7 @@ const projectManager = (function () {
     }
 
     function changeName(project, name) {
-        project.object.textContent = name;
+        project.object.firstElementChild.textContent = name;
         project.project.name = name;
     }
 
@@ -61,7 +61,7 @@ const projectManager = (function () {
 
     //if name has been input and it is unique
     function validateName(name) {
-        if (name.length > 0 && isUniqueName(name)) {
+        if (isUniqueName(name)) {
             return true;
         } 
         return false;
@@ -77,7 +77,7 @@ const projectManager = (function () {
     function getProjectByName(name) {
         return projects.find(project => project.project.getName() === name);
     }
-
+    window.projects = projects;
     return { projects, appendTodo, createProject, validateName, getProjectByName, changeName };
 })();
 
