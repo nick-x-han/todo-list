@@ -7,7 +7,12 @@ import { ToDo } from "./todo.js";
 //IDEA: refactor by using data-name to identify project doms + using an object to store all doms ever created in project manager. could even attach to Projects a .dom property to access their dom element instead of whatevr is being done now w/ ProjectObject
 
 function generateTodoHTML(todo) {
+    const todoDiv = document.createElement("div");
+    const editButton = document.createElement("button");
+    const deleteButton = document.createElement("button");
 
+    editButton.dataset.purpose = "editTodo";
+    deleteButton.dataset.purpose = "deleteTodo";
 }
 
 function generateProjectHTML(name) {

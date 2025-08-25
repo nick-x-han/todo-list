@@ -8,6 +8,7 @@ const domManager = (function () {
     const currentProjectName = document.querySelector("#current-project-header");
 
     let currentProject = projectManager.projects[0];
+    modalManager.initiate(projectManager.projects);
 
     const projectForm = new ProjectForm(projectListDom, projectManager);
 
@@ -64,8 +65,8 @@ const domManager = (function () {
         // reloadTodos();
     }
 
-    function openTodoModal() {
-        modalManager.displayModal("Create");
+    function openTodoModal(event, mainButtonText) {
+        modalManager.displayModal(mainButtonText);
     }
 
     function closeTodoModal() {

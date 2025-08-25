@@ -2,6 +2,7 @@ import { ToDo } from "./todo.js"
 
 //maybe make showModal have different modes, like see (no inputs; amost the same except inputs replaced by the actual values), edit (all fields editable), and etc.
 const modalManager = (function () {
+    let projectList;
     const modal = document.querySelector("#create-todo");
     const title = document.querySelector("#title");
     const description = document.querySelector("#description");
@@ -11,6 +12,9 @@ const modalManager = (function () {
     const cancelButton = document.querySelector("#cancel-button");
     cancelButton.type = "button";
 
+    function initiate(projects) {
+        projectList = projects;
+    }
     function resetModal() {
         title.value = "";
         description.value = "";
@@ -45,7 +49,7 @@ const modalManager = (function () {
         return modalInfo;
     }
 
-    return { displayModal, getModal, popModal, closeModal };
+    return { initiate, displayModal, getModal, popModal, closeModal };
 
 })();
 

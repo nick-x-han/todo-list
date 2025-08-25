@@ -11,10 +11,11 @@ const buttonActions = {
     deleteProject: function (event) { domManager.removeProject(event) },
     editProject: function (event) { domManager.openProjectEditForm(event)},
     confirmEditProject: function(event) { domManager.confirmProjectEditForm(event) },
-    addTodo: function (event) { domManager.openTodoModal(event) },
+    addTodo: function (event) { domManager.openTodoModal(event, "Create") },
     confirmTodo: function (event) { domManager.confirmTodoCreation(event) },
     cancelTodo: function (event) { domManager.closeTodoModal(event) },
-
+    editTodo: function (event) { },
+    deleteTodo: function (event) { },
 };
 
 let todo_list = (function () {

@@ -35,10 +35,11 @@
     <dialog id="create-todo">
         <form action="">
             <!-- the formnovalidate and formmethod technically aren't needed here; only kept as a reminder. look at mdn closing a dialog w/ a required form input -->
-            <button id="cancel-button" class="cancel" formmethod="dialog" data-purpose="cancelTodo" formnovalidate>x</button>
+            
 
             <div class="small-header">
                 Create ToDo
+                <button id="cancel-button" class="cancel" formmethod="dialog" data-purpose="cancelTodo" formnovalidate>x</button>
             </div>
             <div>
                 <label for="title">Title</label>
@@ -58,6 +59,12 @@
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
+                </select required>
+            </div>
+
+            <div>
+                <label for="projectOptions">Project</label>
+                <select name="project" id="projectOptions">
                 </select required>
             </div>
 

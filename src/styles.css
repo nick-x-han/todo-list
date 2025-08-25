@@ -239,6 +239,7 @@ h2 {
 
 #create-todo>form {
   display: grid;
+  gap: 1em;
 }
 
 .cancel {
