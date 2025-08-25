@@ -98,17 +98,16 @@ const projectManager = (function () {
     }
 
     function isUniqueName(name) {
-        const names = projects.map(project => {
-            return project.getName();
+        return !projects.find(project => {
+            return project.getName() === name;
         })
-        return !names.includes(name);
     }
 
     function getProjectByName(name) {
         return projects.find(project => project.getName() === name);
     }
 
-    return { projects, createTodo, createProject, validateName, getProjectByName, changeName, deleteProjectByName };
+    return { projects, createTodo, createProject, isUniqueName, getProjectByName, changeName, deleteProjectByName };
 })();
 
 export default projectManager;

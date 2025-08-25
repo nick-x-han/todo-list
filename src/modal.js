@@ -4,6 +4,7 @@ import { ToDo } from "./todo.js"
 const modalManager = (function () {
     let projectList;
     const modal = document.querySelector("#create-todo");
+    const form = document.querySelector("#modal-form");
     const titleDom = document.querySelector("#title");
     const descriptionDom = document.querySelector("#description");
     const dueDateDom = document.querySelector("#due-date");
@@ -20,7 +21,7 @@ const modalManager = (function () {
     }
 
     function displayModal(purpose) {
-        
+
         confirmButton.textContent = purpose;
         modal.showModal();
     }
@@ -30,7 +31,7 @@ const modalManager = (function () {
         const description = descriptionDom.value;
         const dueDate = dueDateDom.value;
         const priority = priorityDom.value;
-        return {title, description, dueDate, priority};
+        return { title, description, dueDate, priority };
     }
 
     function closeModal() {
@@ -40,8 +41,12 @@ const modalManager = (function () {
     function popModal() {
         const modalInfo = getModal();
 
-        resetModal();
-        // closeModal();g
+        if (form.reportValidity()) {
+            resetModal();
+        }
+
+
+        // closeModal();
 
         return modalInfo;
     }

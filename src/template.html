@@ -33,7 +33,7 @@
         </div>
     </div>
     <dialog id="create-todo">
-        <form action="">
+        <form action="" id="modal-form">
             <!-- the formnovalidate and formmethod technically aren't needed here; only kept as a reminder. look at mdn closing a dialog w/ a required form input -->
             
 
@@ -62,7 +62,7 @@
                 </select>
             </div>
 
-            <button type="submit" data-purpose="confirmTodo" id="confirm-button">Confirm</button>
+            <button type="button" data-purpose="confirmTodo" id="confirm-button">Confirm</button>
         </form>
     </dialog>
 </body>

@@ -43,6 +43,11 @@ function ProjectForm(parent, projectManager) {
         form.appendChild(confirmButton);
         form.appendChild(cancelButton);
         project.appendChild(form);
+
+        nameInput.addEventListener('input', function () {
+            // Clear any custom validity when user types. In the situation where e.g. project "ddd" is created and then I try to create another project "ddd", the error message will correctly show, but even after changing the name the popup will stay until pressing confirm, which is obscured. 
+            this.setCustomValidity("");
+        });
     }
 
     this.displayCreationForm = function () {
@@ -63,7 +68,7 @@ function ProjectForm(parent, projectManager) {
         confirmButton.textContent = "Edit";
         form.classList.remove("create-form");
         form.classList.add("edit-form");
-        
+
 
         parent.insertBefore(project, projectDomObject);
         nameInput.value = projectDomObject.firstElementChild.textContent;
@@ -94,22 +99,35 @@ function ProjectForm(parent, projectManager) {
     this.submitForm = function (e) {
         e.preventDefault();
         const name = nameInput.value;
-        if (projectManager.validateName(name)) {
-            if (formObjectToEdit) {
-                
-                let originalName = formObjectToEdit.firstElementChild.textContent;
-                projectManager.changeName(projectManager.getProjectByName(originalName), name);
+        nameInput.setCustomValidity(""); //reset
 
-            }
-            
-            this.resetFormField();
-            this.hideForm(name);
-            return name;
+        //checks for just minlength basically
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
         }
-        else {
-            //the validation isn't working in general, so this is best that can be done (browser won't check)
-            nameInput.focus();
+
+        if (!projectManager.isUniqueName(name)) {
+            nameInput.setCustomValidity("Another project with this name already exists");
+            nameInput.reportValidity();
+            return;
         }
+        
+        if (formObjectToEdit) {
+
+            let originalName = formObjectToEdit.firstElementChild.textContent;
+            projectManager.changeName(projectManager.getProjectByName(originalName), name);
+
+        }
+
+        this.resetFormField();
+        this.hideForm(name);
+        return name;
+
+        // else {
+        //     //the validation isn't working in general, so this is best that can be done (browser won't check)
+        //     nameInput.focus();
+        // }
     }
 
     initiate();

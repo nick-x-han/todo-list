@@ -26,7 +26,7 @@ function Project(name) {
         
     }
 
-    return {todos, addTodo, getTodos, getDueTasks, getName, setName};
+    return {name, todos, addTodo, getTodos, getDueTasks, getName, setName};
 }
 
 export default Project;
