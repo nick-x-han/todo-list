@@ -5,7 +5,7 @@ function Project(name) {
     let todos = [];
 
     let addTodo = function(todo) {
-        todos.push(todo);
+        todos.push(todo.id);
     }
 
     function getTodos() {

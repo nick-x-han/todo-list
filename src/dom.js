@@ -61,7 +61,7 @@ const domManager = (function () {
         currentProject = projectManager.getProjectByName(name);
         currentProject.dom.classList.toggle("current-project");
         currentProjectName.textContent = currentProject.getName();
-        // reloadTodos();
+        reloadTodos();
     }
 
     function openTodoModal(event, mainButtonText) {
@@ -75,8 +75,11 @@ const domManager = (function () {
     function confirmTodoCreation(event) {
         event.preventDefault();
         let todoInfo = modalManager.popModal();
-        let todo = projectManager.createTodo(currentProject, todoInfo);
-        insertTodoToDom(todo);
+        if (todoInfo) {
+            let todo = projectManager.createTodo(currentProject, todoInfo);
+            insertTodoToDom(todo); //or reloadTodos() if sorting
+        }
+
     }
 
     function insertTodoToDom(todo) {
@@ -90,9 +93,11 @@ const domManager = (function () {
     //with use of localstorage, will almost certainly need to load the projects and then each project's todos alongside them. then, reloadtodos can be used on currentProject
     function reloadTodos() {
         //this will regenerate the #container with the todos for this project
-        // todosListDom.replaceChildren();
-        // const todos = currentProject.getTodos();
-        // console.log(todos);
+        todosListDom.replaceChildren();
+        const todos = currentProject.getTodos();
+        for (let todo of todos) {
+            insertTodoToDom(todo);
+        }
     }
 
     function reloadContent() {
@@ -102,7 +107,6 @@ const domManager = (function () {
         for (const project of projects) {
             insertProject(project);
         }
-        // reloadTodos();
 
         // which project to load after deleting the previous "current" one
         if (!currentProject) {
@@ -111,6 +115,7 @@ const domManager = (function () {
         currentProject.dom.classList.add("current-project");
         if (currentProject)
             currentProjectName.textContent = currentProject.getName();
+        reloadTodos();
     }
 
     reloadContent();

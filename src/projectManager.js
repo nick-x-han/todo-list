@@ -16,13 +16,17 @@ function generateTodoHTML(todo) {
     editButton.dataset.purpose = "editTodo";
     deleteButton.dataset.purpose = "deleteTodo";
     editButton.style.backgroundImage = `url(${editIcon})`;
+    editButton.classList.add("small-button");
     deleteButton.style.backgroundImage = `url(${deleteIcon})`;
+    deleteButton.classList.add("small-button");
     todoDiv.classList.add("todo");
+    todoDiv.classList.add(todo.priority.toLowerCase());
     todoDiv.dataset.id = todo.id;
 
     priorityDisplay.textContent = todo.priority;
     dueDate.textContent = todo.dueDate;
     titleP.textContent = todo.title;
+
 
     todoDiv.append(completedCheckbox);
     todoDiv.append(priorityDisplay);
@@ -46,7 +50,10 @@ function generateProjectHTML(name) {
     deleteButton.dataset.purpose = "deleteProject";
 
     editButton.style.backgroundImage = `url(${editIcon})`;
+    editButton.classList.add("small-button");
     deleteButton.style.backgroundImage = `url(${deleteIcon})`;
+    deleteButton.classList.add("small-button");
+
 
     projectDiv.classList.add("project");
     projectDiv.appendChild(changeButton);
@@ -86,14 +93,6 @@ const projectManager = (function () {
     function deleteProjectByName(name) {
         let index = projects.findIndex(p => p.getName() === name);
         projects.splice(index, 1);
-    }
-
-    //if name has been input and it is unique
-    function validateName(name) {
-        if (isUniqueName(name) && name.length > 0) {
-            return true;
-        }
-        return false;
     }
 
     function isUniqueName(name) {

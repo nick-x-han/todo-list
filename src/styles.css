@@ -103,7 +103,7 @@ header {
   margin: 0;
 }
 
-.project>button:not(:nth-child(1)) {
+.small-button {
   height: 20px;
   width: 20px;
   align-self: center;
@@ -177,11 +177,17 @@ select {
   width: 100%;
 }
 
-.high {}
+.high {
+  border: 5px solid red;
+}
 
-.medium {}
+.medium {
+  border: 5px solid yellow;
+}
 
-.low {}
+.low {
+  border: 5px solid green;
+}
 
 .square {
   width: 30px;
@@ -252,4 +258,9 @@ h2 {
 
 .light-gray {
   background-color: var(--light-gray);
+}
+
+.todo {
+  display: grid;
+  grid-auto-flow: column;
 }

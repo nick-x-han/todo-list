@@ -5,17 +5,17 @@ class ToDo {
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
-        ToDo.allTasks.push(this);
+        ToDo.allTodos.push(this);
     }
 
     #completed = false;
 
     static priorityLevels = ['Low', 'Medium', 'High'];
     //store all tasks ever made for sorting?
-    static allTasks = []
+    static allTodos = []
 
     static getTodoById(id) {
-        return ToDo.allTasks.findIndex(todo => todo.id === id);
+        return ToDo.allTodos.find(todo => todo.id === id);
     }
 
     //the modal will be auto-filled with the current info

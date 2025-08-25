@@ -39,17 +39,12 @@ const modalManager = (function () {
     }
 
     function popModal() {
-        const modalInfo = getModal();
-
         if (form.reportValidity()) {
+            const modalInfo = getModal();
             closeModal();
             resetModal();
+            return modalInfo;
         }
-
-
-        // closeModal();
-
-        return modalInfo;
     }
 
     return { displayModal, getModal, popModal, closeModal };
