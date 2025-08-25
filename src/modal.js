@@ -17,7 +17,7 @@ const modalManager = (function () {
         titleDom.value = "";
         descriptionDom.value = "";
         dueDateDom.value = "";
-        priorityDom.value = "";
+        priorityDom.selectedIndex = 0; //"Low"; without this, the priority select will be empty after first submission
     }
 
     function displayModal(purpose) {
@@ -42,6 +42,7 @@ const modalManager = (function () {
         const modalInfo = getModal();
 
         if (form.reportValidity()) {
+            closeModal();
             resetModal();
         }
 

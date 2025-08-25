@@ -1,6 +1,5 @@
 //handles the form for creating a project
 
-//this should NOT be modifying the DOM (well it can but only with showing/hiding the form); dom.js will do that. this is also great b/c it allows me to easily reload the dom on page load so that the project list is generated immeidately (functions that just go through a list of projects while laso calling another function that takes in a project and inserts it)
 function ProjectForm(parent, projectManager) {
     const newProjectButton = document.querySelector("#new-project");
     const project = document.createElement("div");
@@ -56,8 +55,6 @@ function ProjectForm(parent, projectManager) {
         form.classList.add("create-form");
         form.classList.remove("edit-form");
 
-
-        // modalManager.displayModal();
         parent.insertBefore(project, parent.firstElementChild);
         nameInput.focus();
         newProjectButton.disabled = true;
@@ -123,11 +120,6 @@ function ProjectForm(parent, projectManager) {
         this.resetFormField();
         this.hideForm(name);
         return name;
-
-        // else {
-        //     //the validation isn't working in general, so this is best that can be done (browser won't check)
-        //     nameInput.focus();
-        // }
     }
 
     initiate();

@@ -27,7 +27,7 @@
                 <button class="square" data-purpose="addTodo" id="new-todo">+</button>
             </div>
 
-            <div class="todos-list">
+            <div id="todos-list">
                 
             </div>
         </div>
@@ -39,7 +39,7 @@
 
             <div class="small-header">
                 Create ToDo
-                <button id="cancel-button" class="cancel" formmethod="dialog" data-purpose="cancelTodo" formnovalidate>x</button>
+                <button id="cancel-button" type="submit" class="cancel" formmethod="dialog" data-purpose="cancelTodo" formnovalidate>x</button>
             </div>
             <div>
                 <label for="title">Title</label>
@@ -56,13 +56,13 @@
             <div>
                 <label for="priority">Priority</label>
                 <select name="priority" id="priority">
-                    <option value="low">Low</option>
+                    <option value="low" selected>Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
                 </select>
             </div>
 
-            <button type="button" data-purpose="confirmTodo" id="confirm-button">Confirm</button>
+            <button type="submit" data-purpose="confirmTodo" id="confirm-button">Confirm</button>
         </form>
     </dialog>
 </body>

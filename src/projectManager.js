@@ -3,9 +3,6 @@ import editIcon from "./images/pencil.svg"
 import deleteIcon from "./images/delete.svg"
 import { ToDo } from "./todo.js";
 
-//MIGHT BE BEST TO REFACTOR BY MAKING PROJECTS AN OBJECT...AVOIDS DUPLICATES, O(1), ETC.
-//IDEA: refactor by using data-name to identify project doms + using an object to store all doms ever created in project manager. could even attach to Projects a .dom property to access their dom element instead of whatevr is being done now w/ ProjectObject
-
 function generateTodoHTML(todo) {
     const todoDiv = document.createElement("div");
     const completedCheckbox = document.createElement("input");
@@ -33,6 +30,8 @@ function generateTodoHTML(todo) {
     todoDiv.append(titleP);
     todoDiv.append(editButton);
     todoDiv.append(deleteButton);
+
+    return todoDiv;
 }
 
 function generateProjectHTML(name) {

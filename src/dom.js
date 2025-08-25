@@ -72,14 +72,15 @@ const domManager = (function () {
         modalManager.closeModal();
     }
 
-    function confirmTodoCreation() {
+    function confirmTodoCreation(event) {
+        event.preventDefault();
         let todoInfo = modalManager.popModal();
-        projectManager.createTodo(currentProject, todoInfo);
-        // currentProject.addTodo(); maybe need this to add the todo to the dom without having to refresh the page? btw def need to implement the currentProject thing b/c if pressing e.g. upcoming, how to choose which project?
+        let todo = projectManager.createTodo(currentProject, todoInfo);
+        insertTodoToDom(todo);
     }
 
     function insertTodoToDom(todo) {
-        todosListDom.insertBefore(todo, todosListDom.firstElementChild);
+        todosListDom.prepend(todo.dom);
     }
 
     //for editing todos, just use the modal while disabling all inptu fields. each field will have an edit button next to it, or there's a single edit button to press that undisables all fields
