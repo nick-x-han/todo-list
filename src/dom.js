@@ -34,8 +34,7 @@ const domManager = (function () {
     }
 
     function insertProject(project) {
-        const projectDiv = project.getHTML();
-        projectListDom.insertBefore(projectDiv, projectListDom.firstElementChild);
+        projectListDom.insertBefore(project.dom, projectListDom.firstElementChild);
     }
 
     function openProjectEditForm(event) {
@@ -57,11 +56,11 @@ const domManager = (function () {
     }
 
     function switchCurrentProject(event) {
-        currentProject.getHTML().classList.toggle("current-project");
+        currentProject.dom.classList.toggle("current-project");
         let name = event.target.textContent;
         currentProject = projectManager.getProjectByName(name);
-        currentProject.getHTML().classList.toggle("current-project");
-        currentProjectName.textContent = currentProject.project.getName();
+        currentProject.dom.classList.toggle("current-project");
+        currentProjectName.textContent = currentProject.getName();
         // reloadTodos();
     }
 
@@ -104,9 +103,9 @@ const domManager = (function () {
         if (!currentProject) {
             currentProject = projectManager.projects.at(-1);
         }
-        currentProject.getHTML().classList.add("current-project");
+        currentProject.dom.classList.add("current-project");
         if (currentProject)
-            currentProjectName.textContent = currentProject.project.getName();
+            currentProjectName.textContent = currentProject.getName();
     }
 
     reloadContent();
