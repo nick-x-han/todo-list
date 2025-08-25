@@ -41,7 +41,7 @@ const modalManager = (function () {
         const modalInfo = getModal();
 
         resetModal();
-        // closeModal();
+        // closeModal();g
 
         return modalInfo;
     }
