@@ -8,7 +8,6 @@ const domManager = (function () {
     const currentProjectName = document.querySelector("#current-project-header");
 
     let currentProject = projectManager.projects[0];
-    modalManager.initiate(projectManager.projects);
 
     const projectForm = new ProjectForm(projectListDom, projectManager);
 

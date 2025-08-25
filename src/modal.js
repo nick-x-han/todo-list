@@ -12,9 +12,6 @@ const modalManager = (function () {
     const cancelButton = document.querySelector("#cancel-button");
     cancelButton.type = "button";
 
-    function initiate(projects) {
-        projectList = projects;
-    }
     function resetModal() {
         title.value = "";
         description.value = "";
@@ -49,7 +46,7 @@ const modalManager = (function () {
         return modalInfo;
     }
 
-    return { initiate, displayModal, getModal, popModal, closeModal };
+    return { displayModal, getModal, popModal, closeModal };
 
 })();
 
