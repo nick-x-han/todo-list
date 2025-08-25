@@ -4,8 +4,8 @@ function Project(name) {
 
     let todos = [];
 
-    let addTodo = function(id) {
-        todos.push(id);
+    let addTodo = function(todo) {
+        todos.push(todo);
     }
 
     function getTodos() {
@@ -26,7 +26,7 @@ function Project(name) {
         
     }
 
-    return {addTodo, getTodos, getDueTasks, getName, setName};
+    return {todos, addTodo, getTodos, getDueTasks, getName, setName};
 }
 
 export default Project;

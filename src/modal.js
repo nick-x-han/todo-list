@@ -4,19 +4,19 @@ import { ToDo } from "./todo.js"
 const modalManager = (function () {
     let projectList;
     const modal = document.querySelector("#create-todo");
-    const title = document.querySelector("#title");
-    const description = document.querySelector("#description");
-    const dueDate = document.querySelector("#due-date");
-    const priority = document.querySelector("#priority");
+    const titleDom = document.querySelector("#title");
+    const descriptionDom = document.querySelector("#description");
+    const dueDateDom = document.querySelector("#due-date");
+    const priorityDom = document.querySelector("#priority");
     const confirmButton = document.querySelector("#confirm-button");
     const cancelButton = document.querySelector("#cancel-button");
     cancelButton.type = "button";
 
     function resetModal() {
-        title.value = "";
-        description.value = "";
-        dueDate.value = "";
-        priority.value = "";
+        titleDom.value = "";
+        descriptionDom.value = "";
+        dueDateDom.value = "";
+        priorityDom.value = "";
     }
 
     function displayModal(purpose) {
@@ -26,11 +26,11 @@ const modalManager = (function () {
     }
 
     function getModal() {
-        const t = title.value;
-        const d = description.value;
-        const dd = dueDate.value;
-        const p = priority.value;
-        return [t, d, dd, p];
+        const title = titleDom.value;
+        const description = descriptionDom.value;
+        const dueDate = dueDateDom.value;
+        const priority = priorityDom.value;
+        return {title, description, dueDate, priority};
     }
 
     function closeModal() {
@@ -41,7 +41,7 @@ const modalManager = (function () {
         const modalInfo = getModal();
 
         resetModal();
-        closeModal();
+        // closeModal();
 
         return modalInfo;
     }

@@ -8,11 +8,31 @@ import { ToDo } from "./todo.js";
 
 function generateTodoHTML(todo) {
     const todoDiv = document.createElement("div");
+    const completedCheckbox = document.createElement("input");
+    const priorityDisplay = document.createElement("span");
+    const dueDate = document.createElement("div");
+    const titleP = document.createElement("p");
     const editButton = document.createElement("button");
     const deleteButton = document.createElement("button");
 
+    completedCheckbox.type = "checkbox";
     editButton.dataset.purpose = "editTodo";
     deleteButton.dataset.purpose = "deleteTodo";
+    editButton.style.backgroundImage = `url(${editIcon})`;
+    deleteButton.style.backgroundImage = `url(${deleteIcon})`;
+    todoDiv.classList.add("todo");
+    todoDiv.dataset.id = todo.id;
+
+    priorityDisplay.textContent = todo.priority;
+    dueDate.textContent = todo.dueDate;
+    titleP.textContent = todo.title;
+
+    todoDiv.append(completedCheckbox);
+    todoDiv.append(priorityDisplay);
+    todoDiv.append(dueDate);
+    todoDiv.append(titleP);
+    todoDiv.append(editButton);
+    todoDiv.append(deleteButton);
 }
 
 function generateProjectHTML(name) {
@@ -43,8 +63,11 @@ const projectManager = (function () {
 
 
     function createTodo(project, todoInfo) {
-        const todo = new ToDo()
+        const todo = new ToDo(todoInfo.title, todoInfo.description, todoInfo.dueDate, todoInfo.priority);
+        todo.dom = generateTodoHTML(todo);
         project.addTodo(todo);
+
+        return todo;
     }
 
     function createProject(name) {
@@ -52,7 +75,7 @@ const projectManager = (function () {
         let domObject = generateProjectHTML(name);
         project.dom = domObject;
         projects.push(project);
-        console.log(project.dom);
+
         return project;
     }
 
