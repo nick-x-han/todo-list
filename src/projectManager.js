@@ -1,15 +1,23 @@
 import Project from "./project.js";
 import editIcon from "./images/pencil.svg"
 import deleteIcon from "./images/delete.svg"
+import { ToDo } from "./todo.js";
 
 //MIGHT BE BEST TO REFACTOR BY MAKING PROJECTS AN OBJECT...AVOIDS DUPLICATES, O(1), ETC.
+//IDEA: refactor by using data-name to identify project doms + using an object to store all doms ever created in project manager. could even attach to Projects a .dom property to access their dom element instead of whatevr is being done now w/ ProjectObject
 class ProjectObject {
     constructor(name) {
         this.project = new Project(name);
-        this.object = this.#generateHTML(name);
+        this.object = this.#generateProjectHTML(name);
+        //either use data-id to search for tasks, or do some kind of object in here such that the .project keeps track of the underlying todos, while the new object will use dict to keep track of each task's corresponding dom object or something. maybe the data task will have a id, which the dom task will use as a data-id, allowing free access to both sides. it should be important that, despite such a radically different approach to storing todos vs projects, other modules hvae no idea that they're so different; should basically be the same
+        //project objects keep a dict that stores id: domObject, but it handles all of that logic itself; other classes, including project manager, should have no idea that this is how it is stored 
+        //OR just define on each task a new property that stores their dom, so that the task and project classes have no idea
     }
 
-    #generateHTML(name) {
+    //this will store id (not data-id): domObject, I guess. projectmanager is what actually handles the creation. object is ok here b/c it will prob be used in like .map from id to dom objects, since we should be sorting the tasks themselves anyway, not their dom representation
+    todoDomObjects = {};
+
+    #generateProjectHTML(name) {
         const projectDiv = document.createElement("div");
         const changeButton = document.createElement("button");
         const editButton = document.createElement("button");
@@ -28,7 +36,11 @@ class ProjectObject {
         projectDiv.appendChild(editButton);
         projectDiv.appendChild(deleteButton);
         return projectDiv;
-        //idea: each project div has 3 columns for each of teh three actions. each project can also have a .current-project, in which case the entire div changes color. 
+    }
+
+    //called by projectmanager
+    generateTodoHTML(todo) {
+
     }
 
     getHTML() {
@@ -41,7 +53,8 @@ const projectManager = (function () {
     let defaultProject = new ProjectObject("Default");
     projects.push(defaultProject);
     
-    function appendTodo(project, todo) {
+    function createTodo(project, todoInfo) {
+        const todo = new ToDo()
         project.addTodo(todo);
     }
 
@@ -80,7 +93,7 @@ const projectManager = (function () {
         return projects.find(project => project.project.getName() === name);
     }
     window.projects = projects;
-    return { projects, appendTodo, createProject, validateName, getProjectByName, changeName, deleteProjectByName };
+    return { projects, createTodo, createProject, validateName, getProjectByName, changeName, deleteProjectByName };
 })();
 
 export default projectManager;

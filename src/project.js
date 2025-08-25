@@ -4,12 +4,13 @@ function Project(name) {
 
     let todos = [];
 
-    let addTodo = function(todo) {
-        todos.push(todo);
+    let addTodo = function(id) {
+        todos.push(id);
     }
 
     function getTodos() {
-        return todos;
+        let currentProjectTodos = todos.map(id => ToDo.getTodoById(id));
+        return currentProjectTodos;
     }
 
     function getName() {

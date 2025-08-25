@@ -159,10 +159,6 @@ button:active {
   scrollbar-width: none;
 }
 
-#container, #sidebar {
-  padding-top: 30px;
-}
-
 label {
   display: block;
 }
@@ -201,6 +197,8 @@ select {
   align-items: center;
   gap: 16px;
   padding-bottom: 16px;
+  padding-top: 32px;
+  background-color: calc(background-color + #111111);
 }
 
 h2 {
@@ -251,6 +249,6 @@ h2 {
   background-color: red;
 }
 
-.separator {
-  border: 2px solid black;
+.light-gray {
+  background-color: var(--light-gray);
 }

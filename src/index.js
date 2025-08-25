@@ -12,7 +12,7 @@ const buttonActions = {
     editProject: function (event) { domManager.openProjectEditForm(event)},
     confirmEditProject: function(event) { domManager.confirmProjectEditForm(event) },
     addTodo: function (event) { domManager.openTodoModal(event) },
-    confirmTodo: function () { },
+    confirmTodo: function (event) { domManager.confirmTodoCreation(event) },
     cancelTodo: function (event) { domManager.closeTodoModal(event) },
 
 };

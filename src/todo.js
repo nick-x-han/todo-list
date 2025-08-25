@@ -1,5 +1,6 @@
 class ToDo {
     constructor(title, description = "", dueDate = new Date(), priority = "Low") {
+        this.id = crypto.randomUUID();
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
@@ -12,6 +13,10 @@ class ToDo {
     static priorityLevels = ['Low', 'Medium', 'High'];
     //store all tasks ever made for sorting?
     static allTasks = []
+
+    static getTodoById(id) {
+        return ToDo.allTasks.findIndex(todo => todo.id === id);
+    }
 
     //the modal will be auto-filled with the current info
     editInfo(title, description, dueDate, priority) {

@@ -18,7 +18,7 @@ const domManager = (function () {
 
     function confirmProjectCreationForm(event) {
         let name = projectForm.submitForm(event);
- 
+
         if (name) {
             const project = projectManager.createProject(name);
             insertProject(project);
@@ -44,8 +44,14 @@ const domManager = (function () {
     }
 
     function removeProject(event) {
+        if (projectManager.projects.length === 1) {
+            alert("You must have at least one project.");
+            return;
+        }
         let projectDiv = event.target.closest("div");
         let name = projectDiv.firstElementChild.textContent;
+        if (projectManager.getProjectByName(name) == currentProject)
+            currentProject = null;
         projectManager.deleteProjectByName(name);
         reloadContent();
     }
@@ -62,14 +68,20 @@ const domManager = (function () {
     function openTodoModal() {
         modalManager.displayModal("Create");
     }
-    
+
     function closeTodoModal() {
         modalManager.closeModal();
     }
 
-    function generateTodo() {
-        currentProject.addTodo();
+    function confirmTodoCreation() {
+        let todoInfo = modalManager.popModal();
+        projectManager.createTodo(currentProject, todoInfo);
+        // currentProject.addTodo();
     }
+
+    //for editing todos, just use the modal while disabling all inptu fields. each field will have an edit button next to it, or there's a single edit button to press that undisables all fields
+
+    //for editing projects, prob better to use disabled and keep it as a text input and then style with :disabled so it looks like it isn't a form, but ship has long sailed.
 
     //with use of localstorage, will almost certainly need to load the projects and then each project's todos alongside them. then, reloadtodos can be used on currentProject
     function reloadTodos() {
@@ -88,21 +100,18 @@ const domManager = (function () {
         }
         // reloadTodos();
 
-        //i envision this being useful if the current project deleted and then which project to load?
+        // which project to load after deleting the previous "current" one
         if (!currentProject) {
             currentProject = projectManager.projects.at(-1);
         }
         currentProject.getHTML().classList.add("current-project");
-        currentProjectName.textContent = currentProject.project.getName();
-    }
-
-    function receiveModalEvent() {
-        //wait this function makes no sense to have; addTodos for example should handle the modal
+        if (currentProject)
+            currentProjectName.textContent = currentProject.project.getName();
     }
 
     reloadContent();
 
-    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, generateTodo, switchCurrentProject, receiveModalEvent, removeProject, openProjectEditForm, confirmProjectEditForm, openTodoModal, closeTodoModal };
+    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, confirmTodoCreation, switchCurrentProject, removeProject, openProjectEditForm, confirmProjectEditForm, openTodoModal, closeTodoModal };
 })();
 
 export default domManager;
