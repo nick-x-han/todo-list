@@ -12,9 +12,19 @@ const modalManager = (function () {
     const cancelButton = document.querySelector("#cancel-button");
     cancelButton.type = "button";
 
+    const projectOptions = document.querySelector("#projectOptions");
+
     function initiate(projects) {
         projectList = projects;
     }
+
+    function addProjectOptions() {
+        for (project of projectList) {
+            const option = projec
+            projectOptions.appendChild();
+        }
+    }
+
     function resetModal() {
         title.value = "";
         description.value = "";
