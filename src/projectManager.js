@@ -1,6 +1,7 @@
 import Project from "./project.js";
 import editIcon from "./images/pencil.svg"
 import deleteIcon from "./images/delete.svg"
+import { ToDo } from "./todo.js";
 import TodoForm from "./todoForm.js";
 
 
@@ -39,7 +40,6 @@ const projectManager = (function () {
         const todo = new ToDo(todoInfo.title, todoInfo.description, todoInfo.dueDate, todoInfo.priority);
         todo.dom = new TodoForm(todo).dom;
         project.addTodo(todo);
-        console.log(todoInfo);
         return todo;
     }
 

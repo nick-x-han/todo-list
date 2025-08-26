@@ -102,6 +102,7 @@ button.small-button {
   min-width: 20px;
   align-self: center;
   border: none;
+
   &:hover {
     background-color: inherit;
     border: 1px black dotted;
@@ -179,14 +180,17 @@ select {
 
 .high {
   border: 5px solid red;
+  color: red;
 }
 
 .medium {
   border: 5px solid yellow;
+  color: yellow;
 }
 
 .low {
   border: 5px solid green;
+  color: green;
 }
 
 .square {
@@ -234,9 +238,9 @@ h2 {
   color: white;
   text-align: center;
   text-transform: uppercase;
-  text-shadow: 
-    0 0 2px black,     
-    0 0 4px black;     
+  text-shadow:
+    0 0 2px black,
+    0 0 4px black;
 }
 
 #create-todo {
@@ -262,28 +266,31 @@ h2 {
 
 .todo {
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: space-between;
+  align-items: center;
 }
 
-.todo > * {
+.todo>* {
   max-width: max-content;
 }
 
-input[type="checkbox"] {
+.todo-completed {
   appearance: none;
   position: relative;
   width: 1em;
   height: 1em;
   border: 1px solid gray;
   color: green;
+  align-self: center;
 }
 
-input[type="checkbox"]:checked {
+.todo-completed:checked {
   background-image: url("images/check-bold.svg")
 }
 
-input[type="checkbox"]:disabled {
+.todo-completed:disabled {
+  appearance: none;
   border-color: black;
   background: #dddddd;
   color: gray;
@@ -292,4 +299,46 @@ input[type="checkbox"]:disabled {
 #todos-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.todo-title {
+  border: none;
+  background-color: inherit;
+  /* appearance: none; */
+  max-width: fit-content;
+  text-align: center;
+  pointer-events: none;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.todo-priority {
+  appearance: none;
+  background-color: inherit;
+  font-weight: bold;
+  border: none;
+  display: none;
+}
+
+.todo-date {
+  padding: 0;
+  max-width: fit-content;
+  appearance: none;
+  pointer-events: none;
+  border: none;
+}
+
+.todo-description {
+  border: 3px dotted;
+}
+
+/* remove spacing in calender input display */
+::-webkit-calendar-picker-indicator {
+  margin-left: -25px;
+}
+
+.completed {
+  * {
+    color: gray;
+  }
 }
