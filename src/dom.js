@@ -117,7 +117,8 @@ const domManager = (function () {
             currentProjectName.textContent = currentProject.getName();
         reloadTodos();
     }
-
+    let todo = projectManager.createTodo(currentProject, {title: "TT", description: "description", dueDate: '2025-08-27', priority: "high"});
+            insertTodoToDom(todo); //or reloadTodos() if sorting
     reloadContent();
 
     return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, confirmTodoCreation, switchCurrentProject, removeProject, openProjectEditForm, confirmProjectEditForm, openTodoModal, closeTodoModal };

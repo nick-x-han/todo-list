@@ -1,42 +1,9 @@
 import Project from "./project.js";
 import editIcon from "./images/pencil.svg"
 import deleteIcon from "./images/delete.svg"
-import { ToDo } from "./todo.js";
-
-function generateTodoHTML(todo) {
-    const todoDiv = document.createElement("div");
-    const completedCheckbox = document.createElement("input");
-    const priorityDisplay = document.createElement("span");
-    const dueDate = document.createElement("div");
-    const titleP = document.createElement("p");
-    const editButton = document.createElement("button");
-    const deleteButton = document.createElement("button");
-
-    completedCheckbox.type = "checkbox";
-    editButton.dataset.purpose = "editTodo";
-    deleteButton.dataset.purpose = "deleteTodo";
-    editButton.style.backgroundImage = `url(${editIcon})`;
-    editButton.classList.add("small-button");
-    deleteButton.style.backgroundImage = `url(${deleteIcon})`;
-    deleteButton.classList.add("small-button");
-    todoDiv.classList.add("todo");
-    todoDiv.classList.add(todo.priority.toLowerCase());
-    todoDiv.dataset.id = todo.id;
-
-    priorityDisplay.textContent = todo.priority;
-    dueDate.textContent = todo.dueDate;
-    titleP.textContent = todo.title;
+import TodoForm from "./todoForm.js";
 
 
-    todoDiv.append(completedCheckbox);
-    todoDiv.append(priorityDisplay);
-    todoDiv.append(dueDate);
-    todoDiv.append(titleP);
-    todoDiv.append(editButton);
-    todoDiv.append(deleteButton);
-
-    return todoDiv;
-}
 
 function generateProjectHTML(name) {
     const projectDiv = document.createElement("div");
@@ -70,9 +37,9 @@ const projectManager = (function () {
 
     function createTodo(project, todoInfo) {
         const todo = new ToDo(todoInfo.title, todoInfo.description, todoInfo.dueDate, todoInfo.priority);
-        todo.dom = generateTodoHTML(todo);
+        todo.dom = new TodoForm(todo).dom;
         project.addTodo(todo);
-
+        console.log(todoInfo);
         return todo;
     }
 

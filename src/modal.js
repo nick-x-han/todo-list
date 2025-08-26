@@ -45,6 +45,8 @@ const modalManager = (function () {
             resetModal();
             return modalInfo;
         }
+        // plan last night: do the disabled thing for the todo dom; make the priority a select that is disabled and etcetera. edit button to make changes and then confirm/cancel + editbutton switch purpose (toggle)
+        //maybe in eidt mode, switch purpose of delete button to cancel button and change its background image?
     }
 
     return { displayModal, getModal, popModal, closeModal };
