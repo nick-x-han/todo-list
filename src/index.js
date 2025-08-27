@@ -14,7 +14,8 @@ const buttonActions = {
     addTodo: function (event) { domManager.openTodoModal(event, "Create") },
     confirmTodo: function (event) { domManager.confirmTodoCreation(event) },
     cancelTodo: function (event) { domManager.closeTodoModal(event) },
-    editTodo: function (event) { },
+    editTodo: function (event) { domManager.openEditTodoForm(event); },
+    exitEditTodo: function (event) { domManager.closeEditTodoForm(event); },
     deleteTodo: function (event) { },
 };
 

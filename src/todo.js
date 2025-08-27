@@ -18,17 +18,11 @@ class ToDo {
         return ToDo.allTodos.find(todo => todo.id === id);
     }
 
-    //the modal will be auto-filled with the current info
-    editInfo(title, description, dueDate, priority) {
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        if (ToDo.priorityLevels.includes(priority)) {
-            this.priority = priority;
-        }
-        else {
-            throw Error("Invalid priority level.");
-        }
+    editInfo(info) {
+        this.title = info.title;
+        this.description = info.description;
+        this.dueDate = info.dueDate;
+        this.priority = info.priority;
     }
 
     getCompleted() {

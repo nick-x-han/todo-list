@@ -180,17 +180,14 @@ select {
 
 .high {
   border: 5px solid red;
-  color: red;
 }
 
 .medium {
   border: 5px solid yellow;
-  color: yellow;
 }
 
 .low {
   border: 5px solid green;
-  color: green;
 }
 
 .square {
@@ -283,6 +280,7 @@ h2 {
   border: 1px solid gray;
   color: green;
   align-self: center;
+  margin-left: 3%;
 }
 
 .todo-completed:checked {
@@ -326,10 +324,16 @@ h2 {
   appearance: none;
   pointer-events: none;
   border: none;
+  font-size: 0.8rem;
 }
 
 .todo-description {
   border: 3px dotted;
+  border-color: inherit;
+}
+
+.description-open {
+  border-bottom: none;
 }
 
 /* remove spacing in calender input display */
@@ -342,3 +346,8 @@ h2 {
     color: gray;
   }
 }
+/* 
+.todo-buttons-container {
+  display: flex;
+  flex-direction: column;
+} */

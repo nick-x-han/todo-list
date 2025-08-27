@@ -82,6 +82,16 @@ const domManager = (function () {
 
     }
 
+    function openEditTodoForm(event) {
+        let todoDiv = event.target.closest(".todo").parentElement;
+        todoDiv.parent.toggleEditForm();
+    }
+
+    function closeEditTodoForm(event) {
+        let todoDiv = event.target.closest(".todo").parentElement;
+        todoDiv.parent.finalizeEdits(event);
+    }
+
     function insertTodoToDom(todo) {
         todosListDom.prepend(todo.dom);
     }
@@ -121,7 +131,7 @@ const domManager = (function () {
             insertTodoToDom(todo); //or reloadTodos() if sorting
     reloadContent();
 
-    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, confirmTodoCreation, switchCurrentProject, removeProject, openProjectEditForm, confirmProjectEditForm, openTodoModal, closeTodoModal };
+    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, confirmTodoCreation, switchCurrentProject, removeProject, openProjectEditForm, confirmProjectEditForm, openTodoModal, closeTodoModal, openEditTodoForm, closeEditTodoForm };
 })();
 
 export default domManager;
