@@ -380,8 +380,10 @@ body {
 }
 
 .completed {
+  background-color: antiquewhite;
   * {
     color: gray;
+    background-color: antiquewhite;
   }
 }
 

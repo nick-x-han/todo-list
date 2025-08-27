@@ -20,6 +20,8 @@ export default class TodoForm {
 
     description = document.createElement("textarea");
 
+    editableState = false;
+
     constructor(todo) {
         this.todo = todo;
         this.initiateTodoHTML(todo)
@@ -31,6 +33,7 @@ export default class TodoForm {
     }
 
     toggleEditForm() {
+        this.editableState = !this.editableState;
         this.toggleReadStatus();
         this.changeButtonEditState();
         this.toggleOpenDescription(this.todoDiv);
@@ -85,6 +88,13 @@ export default class TodoForm {
         }
     }
 
+    toggleCompletedState(target) {
+        if (target === this.completedCheckbox) {
+            this.todo.toggleCompleted();
+            this.todoDiv.classList.toggle("completed");
+        }
+    }
+
     //all of this only needs to run on creation
     initiateTodoHTML(todo) {
         this.completedCheckbox.type = "checkbox";
@@ -109,6 +119,8 @@ export default class TodoForm {
         this.dateTitleDiv.classList.add("vertical-two");
 
         this.todoDiv.addEventListener("click", e => this.toggleOpenDescription(e.target));
+
+        this.completedCheckbox.addEventListener("click", e => this.toggleCompletedState(e.target));
 
         this.dueDate.classList.toggle("todo-date");
         this.titleDisplay.classList.toggle("todo-title");
