@@ -50,19 +50,7 @@ header {
   grid-auto-rows: min-content;
   gap: 1em;
   min-width: 0;
-  /* grid-template-columns: 100%; */
 }
-
-/* .project {
-  text-align: center;
-  background-color: var(--light-gray);
-  &:hover {
-    background-color: white;
-  }
-  text-overflow: ellipsis;
-  overflow-x: hidden;
-  white-space: nowrap;
-} */
 
 .project {
   display: grid;
@@ -95,6 +83,9 @@ header {
 .project>button:nth-child(1) {
   border: none;
   margin: 0;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 button.small-button {
