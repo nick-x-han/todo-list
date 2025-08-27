@@ -1,0 +1,173 @@
+import projectManager from "./projectManager.js";
+import modalManager from "./modal.js"
+import { ProjectForm } from "./projectForm.js";
+import { format, endOfTomorrow } from "date-fns";
+
+const domManager = (function () {
+    const projectListDom = document.querySelector("#project-list");
+    const todosListDom = document.querySelector("#todos-list");
+    const currentProjectName = document.querySelector("#current-project-header");
+
+    let currentProject = projectManager.projects[0];
+
+    const projectForm = new ProjectForm(projectListDom, projectManager);
+
+    //NEW IDEA: use the overall same projectForm, but just allow choosing between edit or creation display and also where it gets displayed
+    function openProjectCreationForm(event) {
+        projectForm.displayCreationForm();
+    }
+
+    function confirmProjectCreationForm(event) {
+        let name = projectForm.submitForm(event);
+
+        if (name) {
+            const project = projectManager.createProject(name);
+            insertProject(project);
+        }
+    }
+
+    function confirmProjectEditForm(event) {
+        projectForm.submitForm(event);
+    }
+
+    function cancelProjectCreationForm(event) {
+        projectForm.hideForm(event);
+    }
+
+    function insertProject(project) {
+        projectListDom.insertBefore(project.dom, projectListDom.firstElementChild);
+    }
+
+    function openProjectEditForm(event) {
+        let projectDiv = event.target.closest("div");
+        projectForm.displayEditForm(projectDiv);
+    }
+
+    function removeProject(event) {
+        if (projectManager.projects.length === 1) {
+            alert("You must have at least one project.");
+            return;
+        }
+        let projectDiv = event.target.closest("div");
+        let name = projectDiv.firstElementChild.textContent;
+        if (projectManager.getProjectByName(name) == currentProject)
+            currentProject = null;
+        projectManager.deleteProjectByName(name);
+        reloadContent();
+    }
+
+    function switchCurrentProject(event) {
+        currentProject.dom.classList.toggle("current-project");
+        let name = event.target.textContent;
+        currentProject = projectManager.getProjectByName(name);
+        currentProject.dom.classList.toggle("current-project");
+        currentProjectName.textContent = currentProject.getName();
+        reloadTodos();
+    }
+
+    function openTodoModal(event, mainButtonText) {
+        modalManager.displayModal(mainButtonText);
+    }
+
+    function closeTodoModal() {
+        modalManager.closeModal();
+    }
+
+    function confirmTodoCreation(event) {
+        event.preventDefault();
+        let todoInfo = modalManager.popModal();
+        if (todoInfo) {
+            let todo = projectManager.createTodo(currentProject, todoInfo);
+            insertTodoToDom(todo); //or reloadTodos() if sorting
+        }
+
+    }
+
+    function openEditTodoForm(event) {
+        let todoDiv = event.target.closest(".todo").parentElement;
+        todoDiv.parent.toggleEditForm();
+    }
+
+    function closeEditTodoForm(event) {
+        let todoDiv = event.target.closest(".todo").parentElement;
+        todoDiv.parent.finalizeEdits(event);
+    }
+
+    function removeTodo(event) {
+        let todoDiv = event.target.closest(".todo").parentElement;
+        currentProject.removeTodo(todoDiv.dataset.id);
+        reloadTodos();
+    }
+
+    function insertTodoToDom(todo) {
+        todosListDom.prepend(todo.dom);
+    }
+
+    function saveToLocalStorage() {
+        localStorage.clear();
+        let projects = [];
+        for (let project of projectManager.projects) {
+            let projDict = { name: project.getName(), todos: [] };
+            for (let todo of project.getTodos()) {
+                projDict.todos.push(todo.getInfo());
+            }
+            projects.push(projDict);
+        }
+
+        localStorage.setItem('projects', JSON.stringify(projects));
+        localStorage.setItem('currentProject', JSON.stringify(projectManager.projects.findIndex(project => project.name === currentProject.getName())));
+    }
+
+    function loadFromLocalStorage() {
+        let projects = JSON.parse(localStorage.getItem("projects"));
+        let currentProjectIndex = JSON.parse(localStorage.getItem('currentProject'));
+        
+        if (projects) {
+            for (let project of projects) {
+                let newProj = projectManager.createProject(project.name);
+                for (let todo of project.todos) {
+                    projectManager.createTodo(newProj, todo);
+                }
+            }
+            currentProject = projectManager.projects[currentProjectIndex];
+        }
+        else {
+            currentProject = projectManager.createProject("Default");
+            projectManager.createTodo(currentProject, {title: "Try clicking on me!", description: "Try the buttons on the right!",  priority: "high", dueDate: format(endOfTomorrow(), 'yyyy-MM-dd')});
+        }
+    }
+
+
+    function reloadTodos() {
+        //this will regenerate the #container with the todos for this project
+        todosListDom.replaceChildren();
+        const todos = currentProject.getTodos();
+        for (let todo of todos) {
+            insertTodoToDom(todo);
+        }
+    }
+
+    function reloadContent() {
+        projectListDom.replaceChildren();
+
+        const projects = projectManager.projects;
+        for (const project of projects) {
+            insertProject(project);
+        }
+
+        // which project to load after deleting the previous "current" one
+        if (!currentProject) {
+            currentProject = projectManager.projects.at(-1);
+        }
+        currentProject.dom.classList.add("current-project");
+        if (currentProject)
+            currentProjectName.textContent = currentProject.getName();
+        reloadTodos();
+    }
+    loadFromLocalStorage();
+    reloadContent();
+
+    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, confirmTodoCreation, switchCurrentProject, removeProject, openProjectEditForm, confirmProjectEditForm, openTodoModal, closeTodoModal, openEditTodoForm, closeEditTodoForm, removeTodo, saveToLocalStorage };
+})();
+
+export default domManager;

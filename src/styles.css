@@ -1,0 +1,389 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: minmax(80px, 10%) 1fr;
+}
+
+:root {
+  --light-gray: #dddddddd;
+}
+
+header {
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--light-gray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #326496;
+  letter-spacing: 0.1em;
+}
+
+#content {
+  display: grid;
+
+  grid-template-columns: minmax(15%, 250px) 3fr;
+  height: 100%;
+  /* in case of very long words */
+  overflow-wrap: break-word;
+  word-break: break-all;
+  place-self: stretch;
+}
+
+#sidebar {
+  border-right: 1px var(--light-gray) solid;
+  overflow-y: auto;
+  background-color: var(--light-gray);
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  min-width: min-content;
+  align-self: stretch;
+  height: 100%;
+
+}
+
+#project-list {
+
+  padding: 1em 0.25em;
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: 1em;
+  min-width: 0;
+}
+
+.project {
+  display: grid;
+  justify-self: stretch;
+  /* switch, edit, delete */
+  grid-template-columns: 1fr;
+  grid-auto-columns: 20px;
+  grid-auto-flow: column;
+  background-color: var(--light-gray);
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 100%;
+
+  &:hover {
+    background-color: white;
+  }
+
+  *:active {
+    background-color: var(--light-gray);
+  }
+
+  * {
+    background-color: inherit;
+    border: none;
+  }
+}
+
+.project>button:nth-child(1) {
+  border: none;
+  margin: 0;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+button.small-button {
+  height: 20px;
+  min-width: 20px;
+  align-self: center;
+  border: none;
+
+  &:hover {
+    background-color: inherit;
+    border: 1px black dotted;
+
+  }
+}
+
+#new-project {
+  align-self: start;
+}
+
+button {
+  font-size: 1.2rem;
+  background-color: white;
+  padding: 0.3em;
+}
+
+button:hover {
+  background-color: rgb(184, 238, 240);
+}
+
+button:active {
+  background-color: red;
+}
+
+.create-form {
+  box-sizing: border-box;
+  display: grid;
+  gap: 1em;
+  border: 1px solid black;
+  background-color: gray;
+  padding: 10px;
+  color: white;
+}
+
+.edit-form {
+  box-sizing: border-box;
+  display: grid;
+  gap: 1em;
+  border: 1px solid black;
+  background-color: var(--light-gray);
+  padding: 10px;
+  color: black;
+}
+
+#sidebar>h2 {
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: orangered;
+}
+
+#container {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+label {
+  display: block;
+}
+
+input,
+textarea,
+select {
+  padding: 0.5em;
+  font-size: 1.2rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+select {
+  width: 100%;
+}
+
+.high {
+  border: 5px solid red;
+}
+
+.medium {
+  border: 5px solid yellow;
+}
+
+.low {
+  border: 5px solid green;
+}
+
+.square {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.horizontal-two {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 16px;
+  padding-top: 32px;
+  background-color: calc(background-color + #111111);
+}
+
+.vertical-two {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h2 {
+  margin: 0;
+}
+
+/* when selected as the current project */
+.current-project {
+  /* background-color: aqua; */
+  border: 1px solid black;
+
+  * {
+    font-weight: bold;
+  }
+}
+
+.form-parent {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+}
+
+.small-header {
+  font-size: 2rem;
+  padding: 0.25em;
+  font-weight: 1000;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 2px black,
+    0 0 4px black;
+}
+
+#create-todo {
+  background-color: var(--light-gray);
+}
+
+#create-todo>#modal-form {
+  display: grid;
+  gap: 1em;
+}
+
+.cancel {
+  justify-self: end;
+  padding: 0 0.5em;
+  width: 2em;
+  height: 2em;
+  background-color: red;
+}
+
+.light-gray {
+  background-color: var(--light-gray);
+}
+
+/* .todo-parent {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+} */
+
+body {
+  overflow-x: auto;
+}
+
+.todo {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: space-between;
+  align-items: center;
+  height: 5em;
+}
+
+.todo>* {
+  max-width: max-content;
+}
+
+.todo-completed {
+  appearance: none;
+  position: relative;
+  width: 1em;
+  height: 1em;
+  border: 1px solid gray;
+  color: green;
+  align-self: center;
+  margin-left: 1%;
+}
+
+.todo-completed:checked {
+  background-image: url("images/check-bold.svg")
+}
+
+.todo-completed:disabled {
+  appearance: none;
+  border-color: black;
+  background: #dddddd;
+  color: gray;
+}
+
+#todos-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.todo-title:read-only {
+  border: none;
+  background-color: inherit;
+  /* appearance: none; */
+  max-width: fit-content;
+  text-align: center;
+  pointer-events: none;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.todo-title {
+  font-size: 1rem;
+}
+
+.todo-priority:disabled {
+  appearance: none;
+  background-color: inherit;
+  font-weight: bold;
+  border: none;
+  display: none;
+}
+
+.todo-priority {
+  font-size: 0.8rem;
+}
+
+.todo-date:read-only {
+  padding: 0;
+  
+  appearance: none;
+  pointer-events: none;
+  border: none;
+
+}
+
+.todo-date {
+  font-size: 0.8rem;
+  max-width: fit-content;
+  border: none;
+}
+
+
+.todo-description {
+  border: 3px dotted blue;
+  text-align: center;
+}
+
+.todo-description:read-only {
+  border: 5px solid blue;
+  border-top: 1px dotted black;
+  border-radius: 0 0 16px 16px;
+}
+
+.description-open {
+  border-bottom: none;
+}
+
+/* remove spacing in calender input display */
+::-webkit-calendar-picker-indicator {
+  margin-left: -15px;
+}
+
+.completed {
+  background-color: antiquewhite;
+  * {
+    color: gray;
+    background-color: antiquewhite;
+  }
+}
+
+.todo-parent {
+  overflow-y: hidden;
+}
+
+/* 
+.todo-buttons-container {
+  display: flex;
+  flex-direction: column;
+} */
