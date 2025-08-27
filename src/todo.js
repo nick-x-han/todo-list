@@ -19,8 +19,8 @@ class ToDo {
         return ToDo.allTodos.find(todo => todo.id === id);
     }
 
-    static removeTodoById(id) {
-        let index = ToDo.allTodos.findIndex(i => id === i);
+    static deleteTodoById(id) {
+        let index = ToDo.allTodos.findIndex(todo => id === todo.id);
         ToDo.allTodos.splice(index, 1);
     }
 

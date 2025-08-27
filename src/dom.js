@@ -110,7 +110,6 @@ const domManager = (function () {
             let projDict = { name: project.getName(), todos: [] };
             for (let todo of project.getTodos()) {
                 projDict.todos.push(todo.getInfo());
-                console.log(todo);
             }
             projects.push(projDict);
         }

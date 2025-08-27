@@ -25,7 +25,6 @@ function handleStorageOnChange(purpose) {
     const changePurposes = ['confirmAddProject', 'deleteProject', 'confirmEditProject', 'confirmTodo', 'exitEditTodo', 'deleteTodo', 'toggleCompleted'];
     if (changePurposes.find(p => p === purpose)) {
         domManager.saveToLocalStorage();
-        console.log(purpose);
     }
 }
 
