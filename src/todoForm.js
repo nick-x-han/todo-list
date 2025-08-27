@@ -208,13 +208,13 @@ export default class TodoForm {
         this.dateDisplay.textContent = dateFormatted;
         this.dateInput.value = this.todo.dueDate;
         this.titleDisplay.value = this.todo.title;
-        this.description.textContent = this.todo.description;
+        this.description.value = this.todo.description;
         this.completedCheckbox.checked = this.todo.getCompleted();
     }
 
     getFormValues() {
         let title = this.titleDisplay.value;
-        let description = this.description.textContent;
+        let description = this.description.value;
         let dueDate = this.dateInput.value;
         let priority = this.priorityDisplay.value;
 
