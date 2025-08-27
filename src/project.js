@@ -9,8 +9,10 @@ function Project(name) {
     }
 
     let removeTodo = function (todo) {
+        console.log("Removing " + todo);
         let index = todos.findIndex(id => id === todo.id);
         todos.splice(index, 1);
+        ToDo.removeTodoById(todo.id);
     }
 
     function getTodos() {

@@ -14,11 +14,12 @@ const modalManager = (function () {
     cancelButton.type = "button";
 
     dueDateDom.min = format(startOfToday(), 'yyyy-MM-dd');
+    dueDateDom.value = format(startOfToday(), 'yyyy-MM-dd');
 
     function resetModal() {
         titleDom.value = "";
         descriptionDom.value = "";
-        dueDateDom.value = "";
+        dueDateDom.value = format(startOfToday(), 'yyyy-MM-dd');;
         priorityDom.selectedIndex = 0; //"Low"; without this, the priority select will be empty after first submission
     }
 

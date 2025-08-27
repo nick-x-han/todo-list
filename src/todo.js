@@ -19,6 +19,11 @@ class ToDo {
         return ToDo.allTodos.find(todo => todo.id === id);
     }
 
+    static removeTodoById(id) {
+        let index = ToDo.allTodos.findIndex(i => id === i);
+        ToDo.allTodos.splice(index, 1);
+    }
+
     editInfo(info) {
         this.title = info.title;
         this.description = info.description;
