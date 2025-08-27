@@ -89,10 +89,9 @@ export default class TodoForm {
     }
 
     toggleCompletedState(target) {
-        if (target === this.completedCheckbox) {
-            this.todo.toggleCompleted();
-            this.todoDiv.classList.toggle("completed");
-        }
+        this.todo.toggleCompleted();
+        this.todoDiv.classList.toggle("completed");
+
     }
 
     //all of this only needs to run on creation

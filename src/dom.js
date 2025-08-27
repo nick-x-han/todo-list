@@ -92,13 +92,15 @@ const domManager = (function () {
         todoDiv.parent.finalizeEdits(event);
     }
 
+    function removeTodo(event) {
+        let todoDiv = event.target.closest(".todo").parentElement;
+        currentProject.removeTodo(todoDiv.dataset.id);
+        reloadTodos();
+    }
+
     function insertTodoToDom(todo) {
         todosListDom.prepend(todo.dom);
     }
-
-    //for editing todos, just use the modal while disabling all inptu fields. each field will have an edit button next to it, or there's a single edit button to press that undisables all fields
-
-    //for editing projects, prob better to use disabled and keep it as a text input and then style with :disabled so it looks like it isn't a form, but ship has long sailed.
 
     //with use of localstorage, will almost certainly need to load the projects and then each project's todos alongside them. then, reloadtodos can be used on currentProject
     function reloadTodos() {
@@ -131,7 +133,7 @@ const domManager = (function () {
             insertTodoToDom(todo); //or reloadTodos() if sorting
     reloadContent();
 
-    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, confirmTodoCreation, switchCurrentProject, removeProject, openProjectEditForm, confirmProjectEditForm, openTodoModal, closeTodoModal, openEditTodoForm, closeEditTodoForm };
+    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, confirmTodoCreation, switchCurrentProject, removeProject, openProjectEditForm, confirmProjectEditForm, openTodoModal, closeTodoModal, openEditTodoForm, closeEditTodoForm, removeTodo };
 })();
 
 export default domManager;

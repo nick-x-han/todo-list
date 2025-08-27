@@ -4,8 +4,13 @@ function Project(name) {
 
     let todos = [];
 
-    let addTodo = function(todo) {
+    let addTodo = function (todo) {
         todos.push(todo.id);
+    }
+
+    let removeTodo = function (todo) {
+        let index = todos.findIndex(id => id === todo.id);
+        todos.splice(index, 1);
     }
 
     function getTodos() {
@@ -23,10 +28,10 @@ function Project(name) {
 
     //for getting e.g. tasks ready by today
     function getDueTasks(timeframe) {
-        
+
     }
 
-    return {name, todos, addTodo, getTodos, getDueTasks, getName, setName};
+    return { name, todos, addTodo, getTodos, getDueTasks, getName, setName, removeTodo };
 }
 
 export default Project;

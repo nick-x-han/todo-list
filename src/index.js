@@ -16,7 +16,7 @@ const buttonActions = {
     cancelTodo: function (event) { domManager.closeTodoModal(event) },
     editTodo: function (event) { domManager.openEditTodoForm(event); },
     exitEditTodo: function (event) { domManager.closeEditTodoForm(event); },
-    deleteTodo: function (event) { },
+    deleteTodo: function (event) { domManager.removeTodo(event); },
 };
 
 let todo_list = (function () {
