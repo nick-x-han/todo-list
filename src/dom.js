@@ -161,10 +161,10 @@ const domManager = (function () {
         const projects = projectManager.projects;
         const superProjects = projectManager.superProjects;
 
-        // initializeSuperProjects();
-        // for (const sp of superProjects) {
-        //     superProjectListDom.append(sp.dom);
-        // }
+        initializeSuperProjects();
+        for (const sp of superProjects) {
+            superProjectListDom.append(sp.dom);
+        }
         for (const project of projects) {
             insertProject(project);
         }
