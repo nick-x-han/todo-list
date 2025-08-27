@@ -232,7 +232,8 @@ h2 {
   font-weight: 1000;
   color: white;
   text-align: center;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.1em;
   text-shadow:
     0 0 2px black,
     0 0 4px black;

@@ -31,12 +31,7 @@ function Project(name) {
         name = n;
     }
 
-    //for getting e.g. tasks ready by today. modify this to be more general for open/closed (pass in the criteria function needed)
-    function getDueTasks(timeframe) {
-
-    }
-
-    return { name, todos, addTodo, getTodos, getDueTasks, getName, setName, removeTodo };
+    return { name, todos, addTodo, getTodos, getName, setName, removeTodo };
 }
 
 export default Project;

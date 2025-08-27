@@ -13,7 +13,7 @@ class ToDo {
 
     static priorityLevels = ['Low', 'Medium', 'High'];
     //store all tasks ever made for sorting?
-    static allTodos = []
+    static allTodos = [];
 
     static getTodoById(id) {
         return ToDo.allTodos.find(todo => todo.id === id);

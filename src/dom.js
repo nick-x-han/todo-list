@@ -5,6 +5,7 @@ import { format, endOfTomorrow } from "date-fns";
 
 const domManager = (function () {
     const projectListDom = document.querySelector("#project-list");
+    const superProjectListDom = document.querySelector("#super-project-list");
     const todosListDom = document.querySelector("#todos-list");
     const currentProjectName = document.querySelector("#current-project-header");
 
@@ -12,7 +13,6 @@ const domManager = (function () {
 
     const projectForm = new ProjectForm(projectListDom, projectManager);
 
-    //NEW IDEA: use the overall same projectForm, but just allow choosing between edit or creation display and also where it gets displayed
     function openProjectCreationForm(event) {
         projectForm.displayCreationForm();
     }
@@ -34,8 +34,8 @@ const domManager = (function () {
         projectForm.hideForm(event);
     }
 
-    function insertProject(project) {
-        projectListDom.insertBefore(project.dom, projectListDom.firstElementChild);
+    function insertProject(project, parent = projectListDom) {
+        projectListDom.insertBefore(project.dom, parent.firstElementChild);
     }
 
     function openProjectEditForm(event) {
@@ -121,7 +121,7 @@ const domManager = (function () {
     function loadFromLocalStorage() {
         let projects = JSON.parse(localStorage.getItem("projects"));
         let currentProjectIndex = JSON.parse(localStorage.getItem('currentProject'));
-        
+
         if (projects) {
             for (let project of projects) {
                 let newProj = projectManager.createProject(project.name);
@@ -133,8 +133,16 @@ const domManager = (function () {
         }
         else {
             currentProject = projectManager.createProject("Default");
-            projectManager.createTodo(currentProject, {title: "Try clicking on me!", description: "Try the buttons on the right!",  priority: "high", dueDate: format(endOfTomorrow(), 'yyyy-MM-dd')});
+            projectManager.createTodo(currentProject, { title: "Try clicking on me!", description: "Try the buttons on the right!", priority: "high", dueDate: format(endOfTomorrow(), 'yyyy-MM-dd') });
         }
+    }
+
+    function initializeSuperProjects() {
+        //super projects
+        const overdue = new projectManager.SuperProject("Overdue", function (todo) {
+
+        });
+        projectManager.superProjects.push(overdue);
     }
 
 
@@ -151,6 +159,12 @@ const domManager = (function () {
         projectListDom.replaceChildren();
 
         const projects = projectManager.projects;
+        const superProjects = projectManager.superProjects;
+
+        // initializeSuperProjects();
+        // for (const sp of superProjects) {
+        //     superProjectListDom.append(sp.dom);
+        // }
         for (const project of projects) {
             insertProject(project);
         }

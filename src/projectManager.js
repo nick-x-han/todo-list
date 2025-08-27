@@ -33,6 +33,7 @@ function generateProjectHTML(name) {
 const projectManager = (function () {
     let projects = [];
     let superProjects = [];
+    
     window.projects = projects;
 
 
@@ -51,6 +52,24 @@ const projectManager = (function () {
         return project;
     }
 
+    //the goal with superprojects was to create a function that e.g. checked if it were true that, for any task, the due date is the same day as today. however, wasn't sure what to do with currentProject cache, so stopped. implement later?
+    function SuperProject(name, conditionCheck) {
+        this.dom = document.createElement("button");
+        this.dom.textContent = name;
+        this.dom.classList.add("super-project");
+        this.dom.dataset.purpose = "switchProject";
+
+        this.getTodos = function() {
+            const todos = ToDo.allTodos;
+            todos.filter(todo => conditionCheck(todo));
+            return todos;
+        }
+
+        this.getName = function() {
+            return name;
+        }
+    }
+
     function changeName(project, name) {
         project.dom.firstElementChild.textContent = name;
         project.setName(name);
@@ -64,14 +83,20 @@ const projectManager = (function () {
     function isUniqueName(name) {
         return !projects.find(project => {
             return project.getName() === name;
+        }) && !superProjects.find(project => {
+            return project.getName() === name;
         })
     }
 
     function getProjectByName(name) {
+        let superProject = superProjects.find(project => project.getName() === name);
+        if (superProject) {
+            return superProject;
+        }
         return projects.find(project => project.getName() === name);
     }
 
-    return { projects, createTodo, createProject, isUniqueName, getProjectByName, changeName, deleteProjectByName };
+    return { projects, superProjects, SuperProject, createTodo, createProject, isUniqueName, getProjectByName, changeName, deleteProjectByName };
 })();
 
 export default projectManager;
