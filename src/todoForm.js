@@ -113,10 +113,12 @@ export default class TodoForm {
 
     setStyleByCompleted(completed) {
         if (completed) {
-            this.todoDiv.classList.add("completed");
+            this.todoForm.classList.add("completed");
+            this.description.classList.add("completed");
         }
         else {
-            this.todoDiv.classList.remove("completed");
+            this.todoForm.classList.remove("completed");
+            this.description.classList.remove("completed");
         }
     }
 
@@ -215,7 +217,7 @@ export default class TodoForm {
             }
         });
         const dateFormatted = formatDistanceToNowStrict(new Date(this.todo.dueDate), { addSuffix: true });
-        this.dateDisplay.textContent = dateFormatted;
+        this.dateDisplay.textContent = "due " + dateFormatted;
         this.dateInput.value = this.todo.dueDate;
         this.titleDisplay.value = this.todo.title;
         this.description.value = this.todo.description;

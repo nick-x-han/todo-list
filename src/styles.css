@@ -378,6 +378,10 @@ body {
   }
 }
 
+.todo-parent {
+  overflow-y: hidden;
+}
+
 /* 
 .todo-buttons-container {
   display: flex;
