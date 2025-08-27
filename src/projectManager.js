@@ -36,7 +36,7 @@ const projectManager = (function () {
 
 
     function createTodo(project, todoInfo) {
-        const todo = new ToDo(todoInfo.title, todoInfo.description, todoInfo.dueDate, todoInfo.priority);
+        const todo = new ToDo(todoInfo.title, todoInfo.description, todoInfo.dueDate, todoInfo.priority, todoInfo.completed);
         todo.dom = new TodoForm(todo).dom;
         project.addTodo(todo);
         return todo;

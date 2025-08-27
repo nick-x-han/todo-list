@@ -33,6 +33,7 @@ export default class TodoForm {
         this.toggleReadStatus();
         this.regenerateTodoHTML();
         this.changeButtonEditState();
+        this.setStyleByCompleted(this.completedCheckbox.checked);
     }
 
     toggleEditForm() {
@@ -107,8 +108,16 @@ export default class TodoForm {
 
     toggleCompletedState(target) {
         this.todo.toggleCompleted();
-        this.todoDiv.classList.toggle("completed");
+        this.setStyleByCompleted(this.completedCheckbox.checked);
+    }
 
+    setStyleByCompleted(completed) {
+        if (completed) {
+            this.todoDiv.classList.add("completed");
+        }
+        else {
+            this.todoDiv.classList.remove("completed");
+        }
     }
 
     swapInDate(mode) {
@@ -153,7 +162,8 @@ export default class TodoForm {
 
         this.todoDiv.addEventListener("click", e => this.toggleOpenDescription(e.target));
 
-        this.completedCheckbox.addEventListener("click", e => this.toggleCompletedState(e.target));
+        this.completedCheckbox.dataset.purpose = "toggleCompleted";
+        
 
         this.dateInput.classList.toggle("todo-date");
         this.dateDisplay.classList.toggle("todo-date");
@@ -190,7 +200,7 @@ export default class TodoForm {
 
     //this must run upon any editing update
     regenerateTodoHTML() {
-        
+
         const options = Array.from(this.priorityDisplay.children);
         options.forEach(opt => {
 

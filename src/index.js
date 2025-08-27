@@ -18,10 +18,11 @@ const buttonActions = {
     editTodo: function (event) { domManager.openEditTodoForm(event); },
     exitEditTodo: function (event) { domManager.closeEditTodoForm(event); },
     deleteTodo: function (event) { domManager.removeTodo(event); },
+    toggleCompleted: function(event) { event.target.parentElement.parentElement.parent.toggleCompletedState() }
 };
 
 function handleStorageOnChange(purpose) {
-    const changePurposes = ['confirmAddProject', 'deleteProject', 'confirmEditProject', 'confirmTodo', 'exitEditTodo', 'deleteTodo'];
+    const changePurposes = ['confirmAddProject', 'deleteProject', 'confirmEditProject', 'confirmTodo', 'exitEditTodo', 'deleteTodo', 'toggleCompleted'];
     if (changePurposes.find(p => p === purpose)) {
         domManager.saveToLocalStorage();
         console.log(purpose);
@@ -31,7 +32,9 @@ function handleStorageOnChange(purpose) {
 let todo_list = (function () {
     //using data-purpose for the O/C principle
     function handleButton(event) {
-        const button = event.target.closest('button');
+        let button = event.target.closest('button');
+        //for the toggling-complete checkbox
+        if (!button) button = event.target.closest('input[type="checkbox"]')
 
         if (!button) return;
 
@@ -40,11 +43,11 @@ let todo_list = (function () {
 
         if (action) {
             action(event);
-            handleStorageOnChange(purpose);
         }
         else {
             console.log(purpose)
         }
+        handleStorageOnChange(purpose);
     }
 
     function initiate() {

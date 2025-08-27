@@ -1,10 +1,11 @@
 class ToDo {
-    constructor(title, description = "", dueDate = new Date(), priority = "Low") {
+    constructor(title, description = "", dueDate = new Date(), priority = "Low", completed=false) {
         this.id = crypto.randomUUID();
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.#completed = completed;
         ToDo.allTodos.push(this);
     }
 
@@ -26,7 +27,7 @@ class ToDo {
     }
 
     getInfo() {
-        return { title: this.title, description: this.description, dueDate: this.dueDate, priority: this.priority }; 
+        return { title: this.title, description: this.description, dueDate: this.dueDate, priority: this.priority, completed: this.#completed }; 
     }
 
     getCompleted() {
