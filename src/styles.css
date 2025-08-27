@@ -23,7 +23,7 @@ header {
 #content {
   display: grid;
 
-  grid-template-columns: minmax(20%, 250px) 3fr;
+  grid-template-columns: minmax(15%, 250px) 3fr;
   height: 100%;
   /* in case of very long words */
   overflow-wrap: break-word;
@@ -121,7 +121,7 @@ button {
 }
 
 button:hover {
-  background-color: orange;
+  background-color: rgb(184, 238, 240);
 }
 
 button:active {
@@ -208,6 +208,13 @@ select {
   background-color: calc(background-color + #111111);
 }
 
+.vertical-two {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
 h2 {
   margin: 0;
 }
@@ -244,7 +251,7 @@ h2 {
   background-color: var(--light-gray);
 }
 
-#create-todo>form {
+#create-todo>#modal-form {
   display: grid;
   gap: 1em;
 }
@@ -261,11 +268,21 @@ h2 {
   background-color: var(--light-gray);
 }
 
+/* .todo-parent {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+} */
+
+body {
+  overflow-x: auto;
+}
+
 .todo {
   display: flex;
   /* flex-wrap: wrap; */
   justify-content: space-between;
   align-items: center;
+  height: 5em;
 }
 
 .todo>* {
@@ -280,7 +297,7 @@ h2 {
   border: 1px solid gray;
   color: green;
   align-self: center;
-  margin-left: 3%;
+  margin-left: 1%;
 }
 
 .todo-completed:checked {
@@ -299,7 +316,7 @@ h2 {
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 
-.todo-title {
+.todo-title:read-only {
   border: none;
   background-color: inherit;
   /* appearance: none; */
@@ -310,7 +327,11 @@ h2 {
   font-weight: 800;
 }
 
-.todo-priority {
+.todo-title {
+  font-size: 1rem;
+}
+
+.todo-priority:disabled {
   appearance: none;
   background-color: inherit;
   font-weight: bold;
@@ -318,18 +339,35 @@ h2 {
   display: none;
 }
 
-.todo-date {
+.todo-priority {
+  font-size: 0.9rem;
+}
+
+.todo-date:read-only {
   padding: 0;
-  max-width: fit-content;
+  
   appearance: none;
   pointer-events: none;
   border: none;
-  font-size: 0.8rem;
+
 }
 
+.todo-date {
+  font-size: 0.8rem;
+  max-width: fit-content;
+  border: none;
+}
+
+
 .todo-description {
-  border: 3px dotted;
-  border-color: inherit;
+  border: 3px dotted blue;
+
+}
+
+.todo-description:read-only {
+  border: 5px solid blue;
+  border-top: 1px dotted black;
+  border-radius: 0 0 16px 16px;
 }
 
 .description-open {
@@ -338,7 +376,7 @@ h2 {
 
 /* remove spacing in calender input display */
 ::-webkit-calendar-picker-indicator {
-  margin-left: -25px;
+  margin-left: -15px;
 }
 
 .completed {
@@ -346,6 +384,7 @@ h2 {
     color: gray;
   }
 }
+
 /* 
 .todo-buttons-container {
   display: flex;

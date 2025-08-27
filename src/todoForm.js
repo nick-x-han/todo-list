@@ -10,9 +10,13 @@ export default class TodoForm {
     priorityDisplay = document.createElement("select");
     dueDate = document.createElement("input");
     titleDisplay = document.createElement("input");
+    dateTitleDiv = document.createElement("div");
+
     editButton = document.createElement("button");
     deleteButton = document.createElement("button");
     buttonsDiv = document.createElement("div");
+
+    expandButton = document.createElement("button");
 
     description = document.createElement("textarea");
 
@@ -65,15 +69,11 @@ export default class TodoForm {
         this.description.readOnly = !currentReadStatus;
         this.titleDisplay.readOnly = !currentReadStatus;
         this.priorityDisplay.disabled = !currentReadStatus;
-        this.dueDate.classList.toggle("todo-date");
-        this.titleDisplay.classList.toggle("todo-title");
-        this.description.classList.toggle("todo-description");
-        this.completedCheckbox.classList.toggle("todo-completed");
-        this.priorityDisplay.classList.toggle("todo-priority");
     }
 
     toggleOpenDescription(target) {
-        if (target === this.todoDiv || target === this.todoForm | target.readOnly === true) {
+        if (target === this.description) return; //annoying if description can close/open itself
+        if (target === this.todoDiv || target === this.todoForm | target.readOnly === true || target === this.dateTitleDiv) {
             if (this.description.parentElement === this.todoDiv) {
                 this.description.remove();
                 this.todoForm.classList.remove("description-open");
@@ -85,8 +85,10 @@ export default class TodoForm {
         }
     }
 
+    //all of this only needs to run on creation
     initiateTodoHTML(todo) {
         this.completedCheckbox.type = "checkbox";
+        this.completedCheckbox.classList.add("todo-completed");
 
         this.editButton.classList.add("small-button");
         this.deleteButton.classList.add("small-button");
@@ -96,14 +98,22 @@ export default class TodoForm {
 
         this.todoForm.classList.add("todo");
         this.todoDiv.dataset.id = todo.id;
-
+        this.todoDiv.classList.add("todo-parent");
 
 
         this.dueDate.type = "date";
+        this.dueDate.name = "dueDate"
 
         this.titleDisplay.name = "todoName";
 
+        this.dateTitleDiv.classList.add("vertical-two");
+
         this.todoDiv.addEventListener("click", e => this.toggleOpenDescription(e.target));
+
+        this.dueDate.classList.toggle("todo-date");
+        this.titleDisplay.classList.toggle("todo-title");
+        this.description.classList.toggle("todo-description");
+        this.priorityDisplay.classList.toggle("todo-priority");
 
         const options = [
             { value: 'low', text: 'Low' },
@@ -119,14 +129,17 @@ export default class TodoForm {
 
         this.todoForm.append(this.completedCheckbox);
         this.todoForm.append(this.priorityDisplay);
-        this.todoForm.append(this.titleDisplay);
-        this.todoForm.append(this.dueDate);
+        this.dateTitleDiv.append(this.titleDisplay);
+        this.dateTitleDiv.append(this.dueDate);
+        this.todoForm.append(this.dateTitleDiv);
         this.buttonsDiv.append(this.editButton);
         this.buttonsDiv.append(this.deleteButton);
         this.todoForm.append(this.buttonsDiv);
         this.todoDiv.appendChild(this.todoForm);
+        // this.todoDiv.append(this.expandButton);
     }
 
+    //this must run upon any editing update
     regenerateTodoHTML() {
         const options = Array.from(this.priorityDisplay.children);
         options.forEach(opt => {

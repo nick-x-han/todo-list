@@ -54,3 +54,5 @@ let todo_list = (function () {
 
     initiate();
 })();
+
+//The domManager basically handles most of the logic, almost always calling projectManager or modalManager's functions. project and todo are separate from the dom logic, while todoForm and projectForm are used as interfaces to use project and todo
