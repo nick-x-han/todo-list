@@ -1,4 +1,4 @@
-import { ToDo } from "./todo.js"
+import { startOfToday, format } from "date-fns";
 
 //maybe make showModal have different modes, like see (no inputs; amost the same except inputs replaced by the actual values), edit (all fields editable), and etc.
 const modalManager = (function () {
@@ -12,6 +12,8 @@ const modalManager = (function () {
     const confirmButton = document.querySelector("#confirm-button");
     const cancelButton = document.querySelector("#cancel-button");
     cancelButton.type = "button";
+
+    dueDateDom.min = format(startOfToday(), 'yyyy-MM-dd');
 
     function resetModal() {
         titleDom.value = "";

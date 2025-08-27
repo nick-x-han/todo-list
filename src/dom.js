@@ -1,6 +1,7 @@
 import projectManager from "./projectManager.js";
 import modalManager from "./modal.js"
 import { ProjectForm } from "./projectForm.js";
+import { format, endOfTomorrow } from "date-fns";
 
 const domManager = (function () {
     const projectListDom = document.querySelector("#project-list");
@@ -129,7 +130,7 @@ const domManager = (function () {
         }
         else {
             currentProject = projectManager.createProject("Default");
-            projectManager.createTodo({title: "Try clicking on me!", description: "Try the buttons on the right!",  priority: "high", dueDate: "2025-9-30"});
+            projectManager.createTodo(currentProject, {title: "Try clicking on me!", description: "Try the buttons on the right!",  priority: "high", dueDate: format(endOfTomorrow(), 'yyyy-MM-dd')});
         }
     }
 
