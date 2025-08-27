@@ -26,7 +26,7 @@ function Project(name) {
         name = n;
     }
 
-    //for getting e.g. tasks ready by today
+    //for getting e.g. tasks ready by today. modify this to be more general for open/closed (pass in the criteria function needed)
     function getDueTasks(timeframe) {
 
     }

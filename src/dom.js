@@ -102,7 +102,37 @@ const domManager = (function () {
         todosListDom.prepend(todo.dom);
     }
 
-    //with use of localstorage, will almost certainly need to load the projects and then each project's todos alongside them. then, reloadtodos can be used on currentProject
+    function saveToLocalStorage() {
+        localStorage.clear();
+        let projects = [];
+        for (let project of projectManager.projects) {
+            let projDict = { name: project.getName(), todos: [] };
+            for (let todo of project.getTodos()) {
+                projDict.todos.push(todo.getInfo());
+            }
+            projects.push(projDict);
+        }
+
+        localStorage.setItem('projects', JSON.stringify(projects));
+    }
+
+    function loadFromLocalStorage() {
+        let projects = JSON.parse(localStorage.getItem("projects"));
+        if (projects) {
+            for (let project of projects) {
+                let newProj = projectManager.createProject(project.name);
+                for (let todo of project.todos) {
+                    projectManager.createTodo(newProj, todo);
+                }
+            }
+        }
+        else {
+            currentProject = projectManager.createProject("Default");
+            projectManager.createTodo({title: "Try clicking on me!", description: "Try the buttons on the right!",  priority: "high", dueDate: "2025-9-30"});
+        }
+    }
+
+
     function reloadTodos() {
         //this will regenerate the #container with the todos for this project
         todosListDom.replaceChildren();
@@ -129,11 +159,10 @@ const domManager = (function () {
             currentProjectName.textContent = currentProject.getName();
         reloadTodos();
     }
-    let todo = projectManager.createTodo(currentProject, {title: "TT", description: "description", dueDate: '2025-09-27', priority: "high"});
-            insertTodoToDom(todo); //or reloadTodos() if sorting
+    loadFromLocalStorage();
     reloadContent();
 
-    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, confirmTodoCreation, switchCurrentProject, removeProject, openProjectEditForm, confirmProjectEditForm, openTodoModal, closeTodoModal, openEditTodoForm, closeEditTodoForm, removeTodo };
+    return { openProjectCreationForm, confirmProjectCreationForm, cancelProjectCreationForm, confirmTodoCreation, switchCurrentProject, removeProject, openProjectEditForm, confirmProjectEditForm, openTodoModal, closeTodoModal, openEditTodoForm, closeEditTodoForm, removeTodo, saveToLocalStorage };
 })();
 
 export default domManager;

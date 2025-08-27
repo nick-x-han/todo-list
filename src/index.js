@@ -3,12 +3,13 @@ import "./styles.css";
 import domManager from "./dom.js"
 
 // New actions can be added here without touching handleButton; open/closed principle
+window.dom = domManager;
 const buttonActions = {
     addProject: function (event) { domManager.openProjectCreationForm(event) },
     switchProject: function (event) { domManager.switchCurrentProject(event) },
-    confirmAddProject: function (event) { domManager.confirmProjectCreationForm(event) },
+    confirmAddProject: function (event) { domManager.confirmProjectCreationForm(event); },
     cancelProject: function (event) { domManager.cancelProjectCreationForm(event) },
-    deleteProject: function (event) { domManager.removeProject(event) },
+    deleteProject: function (event) { domManager.removeProject(event); },
     editProject: function (event) { domManager.openProjectEditForm(event)},
     confirmEditProject: function(event) { domManager.confirmProjectEditForm(event) },
     addTodo: function (event) { domManager.openTodoModal(event, "Create") },
@@ -18,6 +19,14 @@ const buttonActions = {
     exitEditTodo: function (event) { domManager.closeEditTodoForm(event); },
     deleteTodo: function (event) { domManager.removeTodo(event); },
 };
+
+function handleStorageOnChange(purpose) {
+    const changePurposes = ['confirmAddProject', 'deleteProject', 'confirmEditProject', 'confirmTodo', 'exitEditTodo', 'deleteTodo'];
+    if (changePurposes.find(p => p === purpose)) {
+        domManager.saveToLocalStorage();
+        console.log(purpose);
+    }
+}
 
 let todo_list = (function () {
     //using data-purpose for the O/C principle
@@ -31,6 +40,7 @@ let todo_list = (function () {
 
         if (action) {
             action(event);
+            handleStorageOnChange(purpose);
         }
         else {
             console.log(purpose)

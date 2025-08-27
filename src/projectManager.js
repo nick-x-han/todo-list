@@ -32,7 +32,6 @@ function generateProjectHTML(name) {
 
 const projectManager = (function () {
     let projects = [];
-    createProject("Default");
     window.projects = projects;
 
 
@@ -48,7 +47,6 @@ const projectManager = (function () {
         let domObject = generateProjectHTML(name);
         project.dom = domObject;
         projects.push(project);
-
         return project;
     }
 
