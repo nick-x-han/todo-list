@@ -36,7 +36,7 @@ header {
   overflow-y: auto;
   background-color: var(--light-gray);
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   min-width: min-content;
   align-self: stretch;
   height: 100%;
@@ -352,7 +352,7 @@ body {
 
 .todo-description {
   border: 3px dotted blue;
-
+  text-align: center;
 }
 
 .todo-description:read-only {

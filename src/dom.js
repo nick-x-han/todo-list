@@ -115,10 +115,13 @@ const domManager = (function () {
         }
 
         localStorage.setItem('projects', JSON.stringify(projects));
+        localStorage.setItem('currentProject', JSON.stringify(projectManager.projects.findIndex(project => project.name === currentProject.getName())));
     }
 
     function loadFromLocalStorage() {
         let projects = JSON.parse(localStorage.getItem("projects"));
+        let currentProjectIndex = JSON.parse(localStorage.getItem('currentProject'));
+        
         if (projects) {
             for (let project of projects) {
                 let newProj = projectManager.createProject(project.name);
@@ -126,6 +129,7 @@ const domManager = (function () {
                     projectManager.createTodo(newProj, todo);
                 }
             }
+            currentProject = projectManager.projects[currentProjectIndex];
         }
         else {
             currentProject = projectManager.createProject("Default");

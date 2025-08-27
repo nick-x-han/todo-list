@@ -22,7 +22,7 @@ const buttonActions = {
 };
 
 function handleStorageOnChange(purpose) {
-    const changePurposes = ['confirmAddProject', 'deleteProject', 'confirmEditProject', 'confirmTodo', 'exitEditTodo', 'deleteTodo', 'toggleCompleted'];
+    const changePurposes = ['confirmAddProject', 'switchProject', 'deleteProject', 'confirmEditProject', 'confirmTodo', 'exitEditTodo', 'deleteTodo', 'toggleCompleted'];
     if (changePurposes.find(p => p === purpose)) {
         domManager.saveToLocalStorage();
     }

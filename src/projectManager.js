@@ -32,6 +32,7 @@ function generateProjectHTML(name) {
 
 const projectManager = (function () {
     let projects = [];
+    let superProjects = [];
     window.projects = projects;
 
 

@@ -14,7 +14,7 @@ function Project(name) {
         }
 
         let index = todos.findIndex(id => id === todo.id);
-        todos.splice(index, 1);
+        todos.splice(index, 1);g
         ToDo.deleteTodoById(todo.id);
     }
 
